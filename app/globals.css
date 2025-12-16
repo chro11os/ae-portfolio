@@ -13,8 +13,9 @@
 html {
   height: 100%;
   width: 100%;
+  /* CRITICAL FIX: Native Scroll Snap + Smooth Behavior */
   scroll-snap-type: y mandatory;
-  scroll-behavior: auto !important;
+  scroll-behavior: smooth;
 }
 
 body {
@@ -27,14 +28,4 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html.lenis, html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden; 
-}
+/* Removed Lenis classes to prevent conflict */

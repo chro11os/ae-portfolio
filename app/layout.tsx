@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik, Oswald } from "next/font/google"; 
 import SmoothScroll from "../components/SmoothScroll"; 
-import './globals.css';
+import '../app/globals.css';
 
 const rubik = Rubik({ 
   subsets: ["latin"], 

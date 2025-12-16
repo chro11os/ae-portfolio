@@ -10,10 +10,50 @@ import { portfolioConfig } from "../../config/portfolio";
 
 const MotionGlassCard = motion(GlassCard);
 
+// --- STATIC CONFIG & HELPERS (Moved outside) ---
+
+const getPosition = (index: number, focusedIndex: number, total: number) => {
+  if (index === focusedIndex) return "center";
+  const nextIndex = (focusedIndex + 1) % total;
+  if (index === nextIndex) return "right";
+  return "left";
+};
+
+const cardVariants = {
+  center: { 
+    zIndex: 30, 
+    scale: 1, 
+    x: 0, 
+    rotateY: 0,
+    opacity: 1,
+    filter: "brightness(1) blur(0px)",
+    transition: { type: "spring" as const, stiffness: 200, damping: 25 }
+  },
+  left: { 
+    zIndex: 10, 
+    scale: 0.8, 
+    x: "-65%", 
+    rotateY: 15,
+    opacity: 0.7,
+    filter: "brightness(0.5) blur(2px)",
+    transition: { type: "spring" as const, stiffness: 200, damping: 25 }
+  },
+  right: { 
+    zIndex: 20, 
+    scale: 0.8, 
+    x: "65%", 
+    rotateY: -15,
+    opacity: 0.7,
+    filter: "brightness(0.5) blur(2px)",
+    transition: { type: "spring" as const, stiffness: 200, damping: 25 }
+  }
+};
+
+// --- MAIN COMPONENT ---
+
 export const Works = () => {
   const { works } = portfolioConfig;
   const sectionRef = useRef(null);
-  
   const isInView = useInView(sectionRef, { amount: 0.3 }); 
 
   const [activeCategoryId, setActiveCategoryId] = useState(works.categories[0].id);
@@ -22,44 +62,6 @@ export const Works = () => {
 
   const handleImageClick = (index: number) => {
     setFocusedIndex(index);
-  };
-
-  const getPosition = (index: number, total: number) => {
-    if (index === focusedIndex) return "center";
-    const nextIndex = (focusedIndex + 1) % total;
-    if (index === nextIndex) return "right";
-    return "left";
-  };
-
-  // FIXED: Added 'as const' to transition types to satisfy TypeScript
-  const cardVariants = {
-    center: { 
-      zIndex: 30, 
-      scale: 1, 
-      x: 0, 
-      rotateY: 0,
-      opacity: 1,
-      filter: "brightness(1) blur(0px)",
-      transition: { type: "spring" as const, stiffness: 200, damping: 25 }
-    },
-    left: { 
-      zIndex: 10, 
-      scale: 0.8, 
-      x: "-65%", 
-      rotateY: 15,
-      opacity: 0.7,
-      filter: "brightness(0.5) blur(2px)",
-      transition: { type: "spring" as const, stiffness: 200, damping: 25 }
-    },
-    right: { 
-      zIndex: 20, 
-      scale: 0.8, 
-      x: "65%", 
-      rotateY: -15,
-      opacity: 0.7,
-      filter: "brightness(0.5) blur(2px)",
-      transition: { type: "spring" as const, stiffness: 200, damping: 25 }
-    }
   };
 
   return (
@@ -75,10 +77,11 @@ export const Works = () => {
 
       <div className="z-10 w-full max-w-7xl px-4 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center h-full pb-32">
         
+        {/* CARDS DECK */}
         <div className="relative h-[300px] md:h-[450px] flex items-center justify-center">
           <AnimatePresence mode="popLayout">
             {activeCategory.images.map((_, index) => {
-              const position = getPosition(index, activeCategory.images.length);
+              const position = getPosition(index, focusedIndex, activeCategory.images.length);
               
               return (
                 <motion.div
@@ -113,6 +116,7 @@ export const Works = () => {
           </AnimatePresence>
         </div>
 
+        {/* DETAILS PANEL */}
         <div className="flex justify-center lg:justify-start z-30 pointer-events-none">
            <MotionGlassCard 
              className="p-8 md:p-12 rounded-[2.5rem] max-w-xl text-center lg:text-left pointer-events-auto"

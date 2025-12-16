@@ -1,29 +1,11 @@
 "use client";
-import { ReactNode, useEffect, useRef } from "react";
-import Lenis from "lenis";
+import { ReactNode } from "react";
 
+// Lenis has been disabled to resolve the conflict with CSS Scroll Snap.
+// Native browser scrolling handles 'scroll-behavior: smooth' + 'snap' 
+// much better on trackpads without jitter/blinking.
 const SmoothScroll = ({ children }: { children: ReactNode }) => {
-  const lenis = useRef<Lenis | null>(null);
-
-  useEffect(() => {
-    lenis.current = new Lenis({
-      lerp: 0.1,
-      smoothWheel: true,
-    });
-
-    const raf = (time: number) => {
-      lenis.current?.raf(time);
-      requestAnimationFrame(raf);
-    };
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.current?.destroy();
-    };
-  }, []);
-
-  return children;
+  return <>{children}</>;
 };
 
 export default SmoothScroll;
