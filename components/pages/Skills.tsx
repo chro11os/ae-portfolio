@@ -26,7 +26,6 @@ export const Skills = () => {
   // HOOK: Handles the infinite scrolling math
   const { containerRef, baseX } = useInfiniteLoop({
     itemCount: REPEAT_COUNT,
-    // If intro isn't finished or user is hovering, speed is 0. Else 0.05.
     speedTarget: (!hasIntroFinished || isHovered) ? 0 : 0.05
   });
 
@@ -82,7 +81,7 @@ export const Skills = () => {
   );
 };
 
-// --- SUB-COMPONENTS (Extracted for readability) ---
+// --- SUB-COMPONENTS ---
 
 const SkillCard = ({ skill, index, onHover, isHovered }: any) => (
   <motion.div 
@@ -124,7 +123,11 @@ const SkillInfoDisplay = ({ activeSkill }: { activeSkill: any }) => (
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
       transition={{ duration: 0.5, delay: 0.5 }} 
-      className="p-8 md:p-10 rounded-[2.5rem] min-h-[220px] flex flex-col justify-center items-center text-center"
+      // FIX APPLIED HERE:
+      // Changed 'min-h-[220px]' to 'h-[300px]'.
+      // This strict height prevents the container above (icons) from jumping 
+      // because the flexbox center point never recalculates.
+      className="p-8 md:p-10 rounded-[2.5rem] h-[300px] flex flex-col justify-center items-center text-center overflow-hidden"
     >
       <AnimatePresence mode="wait">
         {activeSkill ? (
@@ -134,12 +137,12 @@ const SkillInfoDisplay = ({ activeSkill }: { activeSkill: any }) => (
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2, ease: "easeOut" }}
-            className="flex flex-col items-center"
+            className="flex flex-col items-center justify-center h-full"
           >
             <h3 className="font-display font-bold text-3xl md:text-5xl text-brand-pink uppercase drop-shadow-sm mb-4">
               {activeSkill.name}
             </h3>
-            <div className="w-20 h-1.5 bg-brand-pink/20 rounded-full mb-6" />
+            <div className="w-20 h-1.5 bg-brand-pink/20 rounded-full mb-6 shrink-0" />
             <p className="font-sans text-brand-text text-lg md:text-2xl leading-relaxed font-light">
               {activeSkill.description}
             </p>
@@ -151,6 +154,7 @@ const SkillInfoDisplay = ({ activeSkill }: { activeSkill: any }) => (
             animate={{ opacity: 0.4 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
+            className="h-full flex items-center"
           >
               <p className="font-display text-xl uppercase tracking-[0.2em] text-brand-text">
               Select a Software

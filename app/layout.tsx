@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Rubik, Oswald } from "next/font/google"; 
 import SmoothScroll from "../components/SmoothScroll"; 
+import { CustomCursor } from "../components/ui/CustomCursor"; // Import here
 import '../app/globals.css';
 
 const rubik = Rubik({ 
@@ -27,6 +28,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${rubik.variable} ${oswald.variable} antialiased subpixel-antialiased bg-brand-bg text-brand-text`}>
+        {/* Add Cursor Here */}
+        <CustomCursor /> 
+        
         <SmoothScroll>
           {children}
         </SmoothScroll>

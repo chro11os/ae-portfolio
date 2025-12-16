@@ -10,7 +10,7 @@ import { portfolioConfig } from "../../config/portfolio";
 
 const MotionGlassCard = motion(GlassCard);
 
-// --- STATIC CONFIG & HELPERS (Moved outside) ---
+// --- STATIC CONFIG & HELPERS ---
 
 const getPosition = (index: number, focusedIndex: number, total: number) => {
   if (index === focusedIndex) return "center";
@@ -67,9 +67,11 @@ export const Works = () => {
   return (
     <Section ref={sectionRef} className="flex flex-col items-center justify-center relative overflow-hidden h-screen perspective-1000">
       
+      {/* BACKGROUND TEXT */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
          <FadeIn delay={0.2} duration={1.5}>
-            <BigDisplay className="text-[35vw] leading-none text-brand-pink/10 select-none tracking-tighter drop-shadow-[0_35px_60px_rgba(0,0,0,0.2)]">
+            {/* UPDATED: Increased opacity to /20 and added a tighter shadow */}
+            <BigDisplay className="text-[35vw] leading-none text-brand-pink/20 select-none tracking-tighter drop-shadow-[0_10px_30px_rgba(0,0,0,0.15)]">
               {works.heading}
             </BigDisplay>
          </FadeIn>
@@ -119,7 +121,8 @@ export const Works = () => {
         {/* DETAILS PANEL */}
         <div className="flex justify-center lg:justify-start z-30 pointer-events-none">
            <MotionGlassCard 
-             className="p-8 md:p-12 rounded-[2.5rem] max-w-xl text-center lg:text-left pointer-events-auto"
+             // UPDATED: Added 'backdrop-blur-3xl' and 'bg-white/15' for a stronger glass effect
+             className="p-8 md:p-12 rounded-[2.5rem] max-w-xl text-center lg:text-left pointer-events-auto backdrop-blur-3xl bg-white/15"
              initial={{ opacity: 0, x: 50 }}
              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
              transition={{ delay: 0.3 }}
