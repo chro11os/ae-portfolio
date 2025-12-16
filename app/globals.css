@@ -27,10 +27,24 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+/* --- CURSOR HIDING LOGIC --- */
+/* Only hide cursor on devices that have a mouse (pointer: fine) */
 @media (pointer: fine) {
-  body, a, button, input, textarea, select, [role="button"] {
+  
+  /* 1. Hide default arrow on everything */
+  body {
+    cursor: none;
+  }
+
+  /* 2. FORCE hide the 'pointer' hand on links, buttons, and inputs */
+  a, 
+  button, 
+  input, 
+  textarea, 
+  select, 
+  [role="button"],
+  .cursor-pointer {
     cursor: none !important;
   }
 }
-
-/* Removed Lenis classes to prevent conflict */

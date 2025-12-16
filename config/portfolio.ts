@@ -21,7 +21,6 @@ export const portfolioConfig = {
     heading: "EDUCATIONAL",
     heading2: "BACKGROUND",
     university: "MAPUA UNIVERSITY",
-    
     items: [
       {
         id: "award-1",
@@ -47,7 +46,6 @@ export const portfolioConfig = {
         grade: "Full Scholarship",
         description: "Recipient of the university's merit-based scholarship program for sustained excellence in Media Studies."
       },
-
       {
         id: "org-1",
         category: "OFFICER IN",
@@ -81,8 +79,8 @@ export const portfolioConfig = {
         description: "Managed inventory of technological equipment, ensured accountability, and provided on-call support for technical issues."
       }
     ]
-},
-    skills: {
+  },
+  skills: {
     heading: "SKILLS",
     items: [
       {
@@ -190,6 +188,23 @@ export const portfolioConfig = {
            "/assets/works/other2.png",
            "/assets/works/other3.png"
         ]
+      }
+    ]
+  },
+  papers: {
+    heading: "PAPERS",
+    description: "Exploring the intersection of technology, design, and education through academic research and feasibility studies.",
+    items: [
+      {
+        id: "paper-1",
+        title: "BETWEEN INNOVATION AND ETHICS",
+        subtitle: "PERSPECTIVES OF GRADUATE FACULTY ON THE USE OF GENERATIVE AI IN DESIGN EDUCATION",
+        type: "Research Paper",
+        date: "December 2025",
+        conference: "ICAITE - Japan",
+        abstract: "An in-depth analysis of how generative AI tools are reshaping design pedagogy, focusing on the ethical implications and adaptation strategies of graduate faculty members.",
+        // Placeholder link - Replace this with your actual Drive link
+        link: "https://drive.google.com/" 
       }
     ]
   }
