@@ -20,8 +20,8 @@ export const FadeIn = ({
     switch(direction) {
       case "up": return { y: 40, opacity: 0 };
       case "down": return { y: -40, opacity: 0 };
-      case "left": return { x: 40, opacity: 0 }; // slide from right
-      case "right": return { x: -40, opacity: 0 }; // slide from left
+      case "left": return { x: 40, opacity: 0 };
+      case "right": return { x: -40, opacity: 0 };
       default: return { opacity: 0 };
     }
   };
@@ -30,10 +30,10 @@ export const FadeIn = ({
     <motion.div
       initial={getInitial()}
       whileInView={{ y: 0, x: 0, opacity: 1 }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }} // Snappy ease
+      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }} 
       viewport={{ 
-        once: false, // <--- CHANGED: Allows animation to replay
-        margin: "-50px" // <--- ADDED: Triggers slightly inside the viewport
+        once: false, // PERSISTENT: Replays animation on scroll
+        margin: "-50px" 
       }}
       className={className}
       {...props}

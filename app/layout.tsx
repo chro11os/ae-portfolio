@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-// 1. Import Rubik
 import { Rubik, Oswald } from "next/font/google"; 
-import SmoothScroll from "../components/SmoothScroll";
-import "./globals.css";
+import SmoothScroll from "../components/SmoothScroll"; 
+import './globals.css';
 
-// 2. Configure Rubik
 const rubik = Rubik({ 
   subsets: ["latin"], 
   variable: "--font-rubik",
-  // Rubik is a variable font by default in Next.js, so explicit weights are optional
 });
 
 const oswald = Oswald({ 
@@ -29,8 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* 3. Add rubik.variable to the class list */}
-      <body className={`${rubik.variable} ${oswald.variable} antialiased subpixel-antialiased bg-brand-bg text-brand-text overflow-hidden`}>
+      <body className={`${rubik.variable} ${oswald.variable} antialiased subpixel-antialiased bg-brand-bg text-brand-text`}>
         <SmoothScroll>
           {children}
         </SmoothScroll>

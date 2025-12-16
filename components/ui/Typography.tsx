@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils"; // Assumes you have a standard cn utility, or use template literals
-
 // The giant background text (e.g., "AE-DAM", "WHO AM I")
 export const BigDisplay = ({ children, className }: { children: React.ReactNode, className?: string }) => (
   <h1 className={`font-display font-bold text-brand-pink leading-none tracking-tighter select-none ${className}`}>

@@ -11,12 +11,10 @@ export const Landing = () => {
 
   return (
     <Section>
-      {/* 1. Logo - Static & Clean */}
       <FadeIn delay={0.5} className="absolute top-8 right-8 md:top-12 md:right-12 z-50">
         <SectionHeading className="text-xl">{personal.logo}</SectionHeading>
       </FadeIn>
 
-      {/* 2. Background Text (AE-DAM) - Stable with Depth */}
       <div className="absolute inset-0 flex items-start justify-center z-0 pointer-events-none pt-32 md:pt-24 lg:pt-16">
         <FadeIn duration={1}>
           <BigDisplay className="text-[25vw] md:text-[20vw] text-center drop-shadow-[0_15px_15px_rgba(0,0,0,0.1)]">
@@ -25,7 +23,6 @@ export const Landing = () => {
         </FadeIn>
       </div>
 
-      {/* 3. Image (Left Side) - Anchored Firmly */}
       <FadeIn 
         direction="right" 
         delay={0.2}
@@ -43,7 +40,6 @@ export const Landing = () => {
         </div>
       </FadeIn>
 
-      {/* 4. Details (Right Side) - Professional Hover (Color only) */}
       <FadeIn 
         direction="left" 
         delay={0.4}
@@ -54,10 +50,8 @@ export const Landing = () => {
         </BodyText>
       </FadeIn>
 
-      {/* 5. Footer */}
       <Signature />
 
-      {/* 6. Decoration (XX) - Static */}
       <FadeIn 
         delay={1} 
         direction="right"

@@ -23,7 +23,6 @@ export const portfolioConfig = {
     university: "MAPUA UNIVERSITY",
     
     items: [
-      // --- AWARDS ---
       {
         id: "award-1",
         category: "ACADEMIC AWARD",
@@ -49,7 +48,6 @@ export const portfolioConfig = {
         description: "Recipient of the university's merit-based scholarship program for sustained excellence in Media Studies."
       },
 
-      // --- PROFESSIONAL EXPERIENCE (OFFICER IN) ---
       {
         id: "org-1",
         category: "OFFICER IN",
@@ -61,7 +59,7 @@ export const portfolioConfig = {
       {
         id: "org-2",
         category: "OFFICER IN",
-        title: "FILM, ARTS, & MEDIA", // Shortened from "Enthusiasts" to fit better
+        title: "FILM, ARTS, & MEDIA", 
         year: "2023 - 2024",
         role: "President",
         description: "Led the organization’s overall strategic operations, event planning, and student activities."
@@ -83,6 +81,116 @@ export const portfolioConfig = {
         description: "Managed inventory of technological equipment, ensured accountability, and provided on-call support for technical issues."
       }
     ]
+},
+    skills: {
+    heading: "SKILLS",
+    items: [
+      {
+        name: "Adobe Illustrator",
+        icon: "/assets/skills-icon/illustrator.png",
+        description: "Standard for vector graphics, used for creating logos, icons, drawings, typography, and illustrations for print, web, video, and mobile."
+      },
+      {
+        name: "Adobe Photoshop",
+        icon: "/assets/skills-icon/photoshop.png",
+        description: "The industry standard for raster graphics editing and digital art. Used for photo manipulation, compositing, and texture creation."
+      },
+      {
+        name: "Adobe Premiere Pro",
+        icon: "/assets/skills-icon/priemer-pro.png", 
+        description: "Timeline-based video editing software application used for film, TV, and web video editing with professional color grading capabilities."
+      },
+      {
+        name: "Adobe After Effects",
+        icon: "/assets/skills-icon/after-effects.png",
+        description: "Digital visual effects, motion graphics, and compositing application used in the post-production process of film making and television."
+      },
+      {
+        name: "Adobe InDesign",
+        icon: "/assets/skills-icon/in-design.png",
+        description: "Desktop publishing and typesetting software application used to create works such as posters, flyers, brochures, magazines, and newspapers."
+      },
+      {
+        name: "Adobe Fresco",
+        icon: "/assets/skills-icon/fresco.png",
+        description: "Digital painting and drawing app built for stylus and touch devices, combining the power of vector and raster brushes."
+      },
+      {
+        name: "Adobe Lightroom",
+        icon: "/assets/skills-icon/light-room.png",
+        description: "Cloud-based service for people who love photography. It offers powerful tools for editing, organizing, storing, and sharing photos."
+      }
+    ]
   },
-  socials: {}
+  works: {
+    heading: "WORKS",
+    categories: [
+      {
+        id: "ui-ux",
+        label: "UI/UX Design",
+        title: "UI / UX DESIGN",
+        description: "UI/UX Design is a discipline I only encountered in college, yet it opened an entirely new way of thinking for me. It reshaped how I understand design – not just as visuals, but as experience. This field made me more aware of users, systems, and ethical responsibility, and it is something I have grown to love deeply.",
+        images: [
+          "/assets/works/uiux-main.png",
+          "/assets/works/uiux-sub1.png",
+          "/assets/works/uiux-sub2.png",
+        ]
+      },
+      {
+        id: "char-design",
+        label: "Character Design",
+        title: "CHARACTER DESIGN",
+        description: "Breathing life into concepts through visual storytelling, shape language, and expressive characterization.",
+        images: [
+           "/assets/works/char1.png",
+           "/assets/works/char2.png",
+           "/assets/works/char3.png"
+        ]
+      },
+      {
+        id: "graphic-design",
+        label: "Graphic Design",
+        title: "GRAPHIC DESIGN",
+        description: "Communicating ideas through typography, imagery, and color to create compelling visual compositions.",
+        images: [
+           "/assets/works/graphic1.png",
+           "/assets/works/graphic2.png",
+           "/assets/works/graphic3.png"
+        ]
+      },
+      {
+        id: "3d-model",
+        label: "3D Modelling",
+        title: "3D MODELLING",
+        description: "Sculpting and rendering three-dimensional assets to create immersive environments and detailed props.",
+        images: [
+           "/assets/works/3d1.png",
+           "/assets/works/3d2.png",
+           "/assets/works/3d3.png"
+        ]
+      },
+      {
+        id: "first-year",
+        label: "First Year Works",
+        title: "FIRST YEAR WORKS",
+        description: "A collection of my early explorations and foundational projects that started my creative journey.",
+        images: [
+           "/assets/works/fy1.png",
+           "/assets/works/fy2.png",
+           "/assets/works/fy3.png"
+        ]
+      },
+      {
+        id: "other",
+        label: "Other Works",
+        title: "OTHER WORKS",
+        description: "Experimental projects, sketches, and creative endeavors that lie outside the main disciplines.",
+        images: [
+           "/assets/works/other1.png",
+           "/assets/works/other2.png",
+           "/assets/works/other3.png"
+        ]
+      }
+    ]
+  }
 };
