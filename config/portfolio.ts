@@ -12,8 +12,17 @@ export const portfolioConfig = {
   },
   about: {
     heading: "WHO AM I?",
-    bioP1: "I am a 20-year-old creative visionary currently honing my craft at Mapua University's School of Media Studies (SMS).",
-    bioP2: "Specializing in Motion Design, 3D Animation, and Graphics, I am deepening my expertise by pursuing a Master's degree in Multimedia Arts.",
+    // Split into logical paragraphs for better layout control
+    bioP1: "Art has been meaningful to me from the very beginning. It became a way for me to express my own feelings, and with the right knowledge and understanding, to communicate ideas that others could also connect with. Art carries multiple meanings and interpretations, and in that way, it has the power to reach, help, and move people.",
+    
+    bioP2: "As I continue my journey as a college student, I have come to realize that art can be more than personal expression. One of the things that continually reignites my passion – especially during moments of exhaustion or near burnout – is learning the true purpose of a designer and a media practitioner. With this role comes responsibility: to create not only for oneself, but for the people who will experience and use the work.",
+    
+    bioP3: "A key lesson I will always carry with me is the Design Thinking process. It taught me to approach design with empathy, intention, and problem-solving at its core. This mindset reshaped how I view creativity – not just as making something visually appealing, but as designing with purpose, clarity, and impact.",
+    
+    // New Quote Section
+    quote: "“We spend a lot time designing the bridge, but not enough time thinking about the people who are crossing it.”",
+    quoteAuthor: "– Dr. Prabhjot Singh, Director of Systems Design at the Earth Institute",
+
     cardName: "Jaon Ae-dam Gatchalian",
     cardRole: "Motion Designer, 3D Animator, & Graphics Designer",
   },
