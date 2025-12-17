@@ -7,7 +7,7 @@ export const portfolioConfig = {
   },
   landing: {
     heading: "AE-DAM",
-    subHeading: "Motion, Graphics,\n3D Designer.",
+    subHeading: "An artist, a leader, \na researcher, \na media practitioner",
     decoration: "XX",
   },
   about: {
@@ -18,7 +18,7 @@ export const portfolioConfig = {
     quote: "“We spend a lot time designing the bridge, but not enough time thinking about the people who are crossing it.”",
     quoteAuthor: "– Dr. Prabhjot Singh, Director of Systems Design at the Earth Institute",
     cardName: "Jaon Ae-dam Gatchalian",
-    cardRole: "Motion Designer, 3D Animator, & Graphics Designer",
+    cardRole: "An artist, a leader, a researcher, a media practitioner",
   },
   education: {
     heading: "EDUCATIONAL",
@@ -255,7 +255,8 @@ export const portfolioConfig = {
   contact: {
     heading: "REACH OUT!",
     subHeading: "Have a project in mind?\nLet's build something extraordinary.",
-    email: "jaon.aedam25@gmail.com", 
+    email: "jaon.aedam25@gmail.com",
+    resumeUrl: "/assets/resume/Neil_Brags_Guzman_CV.pdf", 
     socials: [
       { label: "LinkedIn", url: "https://linkedin.com" },
       { label: "Behance", url: "https://behance.net" },

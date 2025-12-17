@@ -161,7 +161,7 @@ export const Papers = () => {
 
              <FadeIn direction="up" delay={0.5}>
                 <BodyText className="text-brand-text/80 text-sm md:text-base leading-relaxed italic mt-4 border-l-2 border-brand-pink/30 pl-4 text-left">
-                    "{activePaper.abstract}"
+                    {activePaper.abstract}
                 </BodyText>
             </FadeIn>
 

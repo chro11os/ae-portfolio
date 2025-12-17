@@ -18,7 +18,7 @@ const oswald = Oswald({
 
 export const metadata: Metadata = {
   title: "Ae-Dam | Portfolio",
-  description: "Motion, Graphics, and 3D Designer",
+  description: "An artist, a leader, a researcher, a media practitioner",
 };
 
 export default function RootLayout({

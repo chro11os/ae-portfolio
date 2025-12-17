@@ -231,11 +231,11 @@ export const Works = () => {
                  exit={{ opacity: 0, y: -20 }}
                  transition={{ duration: 0.4 }}
                >
-                 <h2 className="font-display font-bold text-3xl md:text-5xl text-brand-pink uppercase mb-6 leading-none drop-shadow-sm">
+                 <h2 className="font-display font-bold text-3xl md:text-5xl text-brand-pink uppercase mb-6 leading-none drop-shadow-sm text-center">
                    {activeCategory.title}
                  </h2>
                  <div className="w-16 h-1 bg-brand-pink/30 rounded-full mb-6 mx-auto lg:mx-0 lg:ml-auto" />
-                 <p className="font-sans text-brand-text text-lg leading-relaxed font-light">
+                 <p className="font-sans text-brand-text text-lg leading-relaxed font-light text-justify">
                    {activeCategory.description}
                  </p>
                </motion.div>
