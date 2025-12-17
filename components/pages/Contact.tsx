@@ -39,7 +39,6 @@ export const Contact = () => {
   const { contact } = portfolioConfig;
   const [formData, setFormData] = useState({ name: "", subject: "", message: "" });
 
-  // Filter out Behance and GitHub from social links
   const filteredSocials = contact.socials.filter(
     (social) => !["behance", "github"].includes(social.label.toLowerCase())
   );
@@ -56,19 +55,20 @@ export const Contact = () => {
   };
 
   return (
-    <Section className="flex flex-col items-center justify-center relative overflow-hidden h-screen w-full px-6">
+    <Section className="flex flex-col items-center justify-between relative overflow-hidden h-screen w-full px-6 py-12 md:py-20">
       
-      <div className="z-10 w-full max-w-4xl flex flex-col items-center">
+      {/* 1. TOP & MIDDLE CONTENT WRAPPER */}
+      <div className="z-10 w-full max-w-4xl flex flex-col items-center justify-center flex-grow">
         
-        {/* --- TITLE --- */}
-        <div className="text-center space-y-4 mb-10">
+        {/* --- TITLE: Tightened spacing --- */}
+        <div className="text-center space-y-2 md:space-y-4 mb-8 md:mb-12">
             <FadeIn direction="down" delay={0.1}>
-                <BigDisplay className="text-[10vw] md:text-[8vw] leading-[0.85] text-brand-pink drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]">
+                <BigDisplay className="text-[12vw] md:text-[8vw] leading-[0.8] text-brand-pink drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]">
                     {contact.heading}
                 </BigDisplay>
             </FadeIn>
             <FadeIn direction="up" delay={0.3}>
-                <BodyText className="text-brand-text/70 text-lg md:text-2xl font-medium">
+                <BodyText className="text-brand-text/60 text-base md:text-xl font-medium tracking-tight">
                     {contact.subHeading}
                 </BodyText>
             </FadeIn>
@@ -86,13 +86,12 @@ export const Contact = () => {
                 <textarea name="message" required rows={4} placeholder="Message" value={formData.message} onChange={handleChange}
                     className="w-full bg-white/40 backdrop-blur-xl border border-white/40 rounded-2xl px-6 py-4 text-brand-text placeholder:text-brand-text/30 focus:outline-none focus:border-brand-pink/50 transition-all resize-none" />
                 
-                {/* --- ACTION BUTTONS WITH SHEEN --- */}
                 <div className="flex flex-col md:flex-row gap-4 mt-2">
                     <MagneticWrapper strength={0.1}>
                         <motion.button 
                             whileHover="hover"
                             type="submit"
-                            className="group relative w-full bg-brand-pink text-white font-display font-bold text-lg uppercase tracking-widest py-5 rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
+                            className="group relative w-full bg-brand-pink text-white font-display font-bold text-base md:text-lg uppercase tracking-widest py-4 md:py-5 rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
                         >
                             <span className="relative z-10">Send Message</span>
                             <motion.div 
@@ -108,7 +107,7 @@ export const Contact = () => {
                             whileHover="hover"
                             href="/downloadable-documents/Gatchalian_Resume.pdf" 
                             download="Gatchalian_Resume.pdf"
-                            className="group relative w-full bg-white/40 backdrop-blur-xl border border-white/40 text-brand-text font-display font-bold text-sm uppercase tracking-widest py-5 rounded-2xl flex items-center justify-center overflow-hidden transition-all duration-300 hover:border-brand-pink/30 hover:shadow-[0_0_20px_rgba(240,74,117,0.15)]"
+                            className="group relative w-full bg-white/40 backdrop-blur-xl border border-white/40 text-brand-text font-display font-bold text-xs md:text-sm uppercase tracking-widest py-4 md:py-5 rounded-2xl flex items-center justify-center overflow-hidden transition-all duration-300 hover:border-brand-pink/30 hover:shadow-[0_0_20px_rgba(240,74,117,0.15)]"
                         >
                             <span className="relative z-10 group-hover:text-brand-pink transition-colors">Download CV</span>
                             <motion.div 
@@ -121,14 +120,14 @@ export const Contact = () => {
                 </div>
             </form>
 
-            {/* --- UPDATED SOCIAL TEXT LINKS --- */}
-            <div className="mt-12 flex justify-center gap-10">
+            {/* --- SOCIAL LINKS: Improved top margin --- */}
+            <div className="mt-16 md:mt-24 flex justify-center gap-8 md:gap-12">
                 {filteredSocials.map((social, index) => (
                     <FadeIn key={social.label} delay={0.5 + (index * 0.1)} direction="up">
                         <MagneticWrapper strength={0.3}>
                             <a href={social.url} target="_blank" rel="noopener noreferrer" 
-                               className="text-brand-text/40 font-display font-bold text-xs md:text-sm uppercase tracking-[0.2em] hover:text-brand-pink transition-colors p-2 block">
-                                {social.label}
+                               className="text-brand-text/30 font-display font-bold text-[10px] md:text-xs uppercase tracking-[0.3em] hover:text-brand-pink transition-all p-2 block">
+                                 {social.label}
                             </a>
                         </MagneticWrapper>
                     </FadeIn>
@@ -137,9 +136,27 @@ export const Contact = () => {
         </FadeIn>
       </div>
 
-      {/* --- FOOTER COPYRIGHT --- */}
-      <div className="absolute bottom-8 w-full flex justify-center opacity-30">
-          <p className="text-xs tracking-widest uppercase font-bold">{contact.copyright}</p>
+      {/* --- FOOTER: Credits & Copyright --- */}
+      <div className="w-full flex flex-col items-center gap-8 md:gap-10 pb-4">
+          <FadeIn delay={0.7} className="flex flex-col md:flex-row justify-center items-center gap-6 md:gap-16">
+              <div className="text-center md:text-right">
+                  <span className="block text-[8px] md:text-[9px] text-brand-text/30 uppercase tracking-[0.4em] mb-1.5">Web Designer</span>
+                  <span className="font-display font-bold text-[10px] md:text-xs text-brand-pink uppercase tracking-widest">
+                    Jaon Ae-dam Gatchalian
+                  </span>
+              </div>
+              <div className="hidden md:block w-px h-8 bg-brand-text/5" />
+              <div className="text-center md:text-left">
+                  <span className="block text-[8px] md:text-[9px] text-brand-text/30 uppercase tracking-[0.4em] mb-1.5">Web Developer</span>
+                  <span className="font-display font-bold text-[10px] md:text-xs text-brand-pink uppercase tracking-widest">
+                    Neil Brags Guzman
+                  </span>
+              </div>
+          </FadeIn>
+
+          <div className="opacity-20">
+              <p className="text-[9px] md:text-[10px] tracking-[0.5em] uppercase font-bold">{contact.copyright}</p>
+          </div>
       </div>
     </Section>
   );
