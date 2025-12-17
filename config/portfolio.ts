@@ -263,8 +263,8 @@ export const portfolioConfig = {
     email: "jaon.aedam25@gmail.com",
     resumeUrl: "/downloadable-documents/Gatchalian_Resume.pdf", 
     socials: [
-      { label: "LinkedIn", url: "https://linkedin.com" },
-      { label: "Instagram", url: "https://instagram.com" }
+      { label: "LinkedIn", url: "https://www.linkedin.com/in/jaon-ae-dam-gatchalian-a5466035a/" },
+      { label: "Instagram", url: "https://www.instagram.com/ae_gatch/" }
     ],
     copyright: "© 2025 AE-DAM. All Rights Reserved."
   }
