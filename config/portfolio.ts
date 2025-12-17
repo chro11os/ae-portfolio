@@ -130,7 +130,7 @@ export const portfolioConfig = {
         id: "ui-ux",
         label: "UI/UX Design",
         title: "UI / UX DESIGN",
-        description: "UI/UX Design is a discipline I only encountered in college, yet it opened an entirely new way of thinking for me. It reshaped how I understand design – not just as visuals, but as experience. This field made me more aware of users, systems, and ethical responsibility, and it is something I have grown to love deeply.",
+        description: "UI/UX design is a discipline I only encountered in college, yet it opened an entirely new way of thinking for me. It reshaped how I understand design – not just as visuals, but as experience. This field made me more aware of users, systems, and ethical responsibility, and it is something I have grown to love deeply.",
         images: [
           "/works-assets/ui-design/ui-1.png",
           "/works-assets/ui-design/ui-2.png",
@@ -141,7 +141,7 @@ export const portfolioConfig = {
         id: "char-design",
         label: "Character Design",
         title: "CHARACTER DESIGN",
-        description: "Breathing life into concepts through visual storytelling, shape language, and expressive characterization.",
+        description: "Character design was one of the first creative practices I explored as a child, and it remains a constant in my life. It is something I return to naturally in my free time, and so far, I have never experienced a creative block in this area.",
         images: [
            "/works-assets/char-design/char-design-1.png",
            "/works-assets/char-design/char-design-2.png",
@@ -155,13 +155,13 @@ export const portfolioConfig = {
         id: "graphic-design",
         label: "Graphic Design",
         title: "GRAPHIC DESIGN",
-        description: "Communicating ideas through typography, imagery, and color to create compelling visual compositions.",
+        description: "Graphic design was not something I initially gravitated toward. However, once I begin, I often find myself fully immersed and enjoying the process. It has taught me how to communicate ideas clearly and balance aesthetics with function.",
         images: [
            "/works-assets/graphics-design/graphics-design-1.png",
            "/works-assets/graphics-design/graphics-design-2.png",
            "/works-assets/graphics-design/graphics-design-3.png",
            "/works-assets/graphics-design/graphics-design-4.png",
-           "/works-assets/graphics-design/graphics-design-5.jpg", // Note: This one is .jpg
+           "/works-assets/graphics-design/graphics-design-5.jpg", 
            "/works-assets/graphics-design/graphics-design-6.png",
            "/works-assets/graphics-design/graphics-design-7.png",
            "/works-assets/graphics-design/graphics-design-8.png",
@@ -173,7 +173,7 @@ export const portfolioConfig = {
         id: "3d-model",
         label: "3D Modelling",
         title: "3D MODELLING",
-        description: "Sculpting and rendering three-dimensional assets to create immersive environments and detailed props.",
+        description: "3D modelling and animation are practices I am eager to develop further. I am drawn to the challenge of making digital objects feel tangible, bridging the gap between design and reality. This is a space where I continue to explore form, space, and movement.",
         images: [
            "/works-assets/3d-model/3d-model-1.png",
            "/works-assets/3d-model/3d-model-2.png",
@@ -189,7 +189,7 @@ export const portfolioConfig = {
         id: "first-year",
         label: "First Year Works",
         title: "FIRST YEAR WORKS",
-        description: "A collection of my early explorations and foundational projects that started my creative journey.",
+        description: "I began my first year of college at Mapúa University with no formal background in art. I did not have access to the devices, tools, or resources that many of my peers already had. My only experience came from doodling with pen and paper during class breaks and in quiet moments of free time. Entering a space filled with classmates who had years of training, workshops, tutors, and industry exposure was intimidating. Instead of discouraging me, it became my motivation. I knew I had to catch up – and all I had was my passion, discipline, and the drive to become better. These works represent my starting point as an inexperienced but deeply committed first-year student, learning through experimentation and persistence.",
         images: [
            "/works-assets/1st-year-works/year-works-1.jpg",
            "/works-assets/1st-year-works/year-works-2.jpg",
@@ -207,15 +207,15 @@ export const portfolioConfig = {
         id: "photography",
         label: "Photography",
         title: "PHOTOGRAPHY",
-        description: "Capturing moments, light, and composition to tell stories through the lens. A collection of street, portrait, and editorial photography.",
+        description: "Photography opened my eyes to the real world – both literally and figuratively. It taught me how to see beyond the obvious, to notice perspectives, shapes, and forms that often go unnoticed. By working with what already exists and approaching it with intention, I learned that beauty does not always need to be created from scratch. With the right lens and angle, even the most ordinary things can take on a meaningful quality. Photography has shown me that what people often pass by or choose to ignore can hold quiet stories, emotions, and depth – waiting to be seen.",
         images: [
            "/works-assets/photography/photography-1.JPG",
            "/works-assets/photography/photography-2.JPG",
-           "/works-assets/photography/photography-3.jpg", // The screenshot shows .jpg for 3 onwards
+           "/works-assets/photography/photography-3.jpg",
            "/works-assets/photography/photography-4.jpg",
            "/works-assets/photography/photography-5.jpg",
            "/works-assets/photography/photography-6.jpg",
-           "/works-assets/photography/photography-7.JPG", // 7 is .JPG
+           "/works-assets/photography/photography-7.JPG",
            "/works-assets/photography/photography-8.JPG",
            "/works-assets/photography/photography-9.JPG",
            "/works-assets/photography/photography-10.JPG",
@@ -247,7 +247,7 @@ export const portfolioConfig = {
         type: "Research Paper",
         date: "December 2025",
         conference: "ICAITE - Japan",
-        abstract: "An in-depth analysis of how generative AI tools are reshaping design pedagogy, focusing on the ethical implications and adaptation strategies of graduate faculty members.",
+        abstract: "This qualitative study investigates the integration of generative AI into graduate-level design education, exploring how faculty navigate the tension between innovation and ethical challenges. Utilizing a design thinking framework and empathy interviews with five educators from Philippine universities, the research identifies key themes regarding pedagogical strategies, academic integrity, and the enduring necessity of human-centric critical thinking. The findings offer practical implications for curriculum development and policy formation to ensure students leverage AI as a collaborative tool rather than a substitute for creativity.",
         link: "https://drive.google.com/" 
       }
     ]
