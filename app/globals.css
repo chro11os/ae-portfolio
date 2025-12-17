@@ -48,3 +48,43 @@ body {
     cursor: none !important;
   }
 }
+
+/* --- TYPOGRAPHY & SELECTION --- */
+::selection {
+  background: var(--color-brand-pink);
+  color: white;
+}
+
+/* --- PAPERS SECTION REFINEMENTS --- */
+
+/* Add specialized perspective for the 3D Paper Card */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+/* Ensures the expanded text block maintains its layout integrity */
+.papers-description-container {
+  max-width: 65ch; /* Optimal line length for readability */
+  text-rendering: optimizeLegibility;
+}
+
+/* Smooth transition for hover effects on text blocks and clean manuscript alignment */
+.text-justify {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+}
+
+/* Responsive adjustments for large text blocks to ensure readability on mobile */
+@media (max-width: 768px) {
+  .text-justify {
+    text-align: left; 
+    hyphens: none;
+  }
+}
+
+/* Utility for smooth image rendering in the PaperViewer */
+.viewer-content img {
+  user-select: none;
+  -webkit-user-drag: none;
+}

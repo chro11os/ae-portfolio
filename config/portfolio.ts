@@ -238,17 +238,22 @@ export const portfolioConfig = {
   },
   papers: {
     heading: "PAPERS",
-    description: "Exploring the intersection of technology, design, and education through academic research and feasibility studies.",
+    description: "This qualitative study investigates the integration of generative AI into graduate-level design education, exploring how faculty navigate the tension between innovation and ethical challenges.",
     items: [
       {
-        id: "paper-1",
+        id: "paper-2026",
         title: "BETWEEN INNOVATION AND ETHICS",
         subtitle: "PERSPECTIVES OF GRADUATE FACULTY ON THE USE OF GENERATIVE AI IN DESIGN EDUCATION",
-        type: "Research Paper",
-        date: "December 2025",
-        conference: "ICAITE - Japan",
-        abstract: "This qualitative study investigates the integration of generative AI into graduate-level design education, exploring how faculty navigate the tension between innovation and ethical challenges. Utilizing a design thinking framework and empathy interviews with five educators from Philippine universities, the research identifies key themes regarding pedagogical strategies, academic integrity, and the enduring necessity of human-centric critical thinking. The findings offer practical implications for curriculum development and policy formation to ensure students leverage AI as a collaborative tool rather than a substitute for creativity.",
-        link: "https://drive.google.com/" 
+        type: "Published Paper (2026)",
+        date: "2026",
+        conference: "ICAITE - JAPAN",
+        abstract: "Utilizing a design thinking framework and empathy interviews with five educators from Philippine universities, the research identifies key themes regarding pedagogical strategies, academic integrity, and the enduring necessity of human-centric critical thinking. The findings offer practical implications for curriculum development and policy formation to ensure students leverage AI as a collaborative tool rather than a substitute for creativity.",
+        fileUrl: "/downloadable-documents/JO142_Revised-Manuscript.pdf",
+        previewPages: [
+            "/assets/papers/manuscript-p1.jpg", // Ensure you have these preview images
+            "/assets/papers/manuscript-p2.jpg",
+            "/assets/papers/manuscript-p3.jpg"
+        ]
       }
     ]
   },
@@ -256,12 +261,10 @@ export const portfolioConfig = {
     heading: "REACH OUT!",
     subHeading: "Have a project in mind?\nLet's build something extraordinary.",
     email: "jaon.aedam25@gmail.com",
-    resumeUrl: "/assets/resume/Neil_Brags_Guzman_CV.pdf", 
+    resumeUrl: "/downloadable-documents/Gatchalian_Resume.pdf", 
     socials: [
       { label: "LinkedIn", url: "https://linkedin.com" },
-      { label: "Behance", url: "https://behance.net" },
-      { label: "Instagram", url: "https://instagram.com" },
-      { label: "GitHub", url: "https://github.com" }
+      { label: "Instagram", url: "https://instagram.com" }
     ],
     copyright: "© 2025 AE-DAM. All Rights Reserved."
   }
