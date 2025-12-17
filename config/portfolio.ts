@@ -26,7 +26,7 @@ export const portfolioConfig = {
         id: "award-1",
         category: "ACADEMIC AWARD",
         title: "PRESIDENT'S LISTER",
-        year: "2023 - 2024",
+        year: "2025, 3RD TERM",
         grade: "GWA: 1.00 - 1.50",
         description: "Awarded to students with exceptional academic performance, maintaining a grade weighted average within the highest tier of the university standards."
       },
@@ -34,7 +34,7 @@ export const portfolioConfig = {
         id: "award-2",
         category: "ACADEMIC AWARD",
         title: "DEAN'S LISTER",
-        year: "2022 - 2023",
+        year: "2022 - 2025",
         grade: "GWA: 1.50 - 1.75",
         description: "Recognized for consistent high grades and academic dedication throughout the academic year across all major subjects."
       },
@@ -42,7 +42,7 @@ export const portfolioConfig = {
         id: "award-3",
         category: "SCHOLARSHIP",
         title: "ACADEMIC SCHOLAR",
-        year: "2021 - Present",
+        year: "2025",
         grade: "Full Scholarship",
         description: "Recipient of the university's merit-based scholarship program for sustained excellence in Media Studies."
       },
@@ -50,7 +50,7 @@ export const portfolioConfig = {
         id: "org-1",
         category: "OFFICER IN",
         title: "GUIDANCE SOCIETY",
-        year: "2023 - 2025",
+        year: "2022 - 2025",
         role: "Internal VP & Creative Head",
         description: "Oversaw internal operations and affairs of the organization while leading the creation of creative publishing materials."
       },
@@ -58,7 +58,7 @@ export const portfolioConfig = {
         id: "org-2",
         category: "OFFICER IN",
         title: "FILM, ARTS, & MEDIA", 
-        year: "2023 - 2024",
+        year: "2022 - 2025",
         role: "President",
         description: "Led the organization’s overall strategic operations, event planning, and student activities."
       },
@@ -66,7 +66,7 @@ export const portfolioConfig = {
         id: "org-3",
         category: "OFFICER IN",
         title: "TV MAPUA",
-        year: "2023 - 2024",
+        year: "2022 - 2023",
         role: "COO Representative",
         description: "Represented the organization in inter-organizational meetings and served as a liaison to relay essential information to the council."
       },
@@ -179,14 +179,14 @@ export const portfolioConfig = {
         ]
       },
       {
-        id: "other",
-        label: "Other Works",
-        title: "OTHER WORKS",
-        description: "Experimental projects, sketches, and creative endeavors that lie outside the main disciplines.",
+        id: "photography",
+        label: "Photography",
+        title: "PHOTOGRAPHY",
+        description: "Capturing moments, light, and composition to tell stories through the lens. A collection of street, portrait, and editorial photography.",
         images: [
-           "/assets/works/other1.png",
-           "/assets/works/other2.png",
-           "/assets/works/other3.png"
+           "/assets/works/photo1.png",
+           "/assets/works/photo2.png",
+           "/assets/works/photo3.png"
         ]
       }
     ]
@@ -207,5 +207,17 @@ export const portfolioConfig = {
         link: "https://drive.google.com/" 
       }
     ]
+  },
+  contact: {
+    heading: "REACH OUT!",
+    subHeading: "Have a project in mind?\nLet's build something extraordinary.",
+    email: "jaon.aedam25@gmail.com", // Replace with your actual email
+    socials: [
+      { label: "LinkedIn", url: "https://linkedin.com" },
+      { label: "Behance", url: "https://behance.net" },
+      { label: "Instagram", url: "https://instagram.com" },
+      { label: "GitHub", url: "https://github.com" }
+    ],
+    copyright: "© 2025 AE-DAM. All Rights Reserved."
   }
 };

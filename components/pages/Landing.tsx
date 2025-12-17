@@ -30,7 +30,7 @@ export const Landing = () => {
       >
         <div className="relative aspect-[3/4] md:aspect-[4/5] w-full">
            <Image 
-             src="/assets/landing-page-photo.png"
+             src="/assets/landing-page-photo-final.png"
              alt={personal.name}
              fill
              className="object-contain object-bottom"
