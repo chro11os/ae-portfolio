@@ -2,7 +2,8 @@
 import React from "react";
 import Image from "next/image";
 import { Section } from "../ui/Section";
-import { BigDisplay, BodyText } from "../ui/Typography";
+import { BodyText } from "../ui/Typography";
+import { StaggeredTitle } from "../ui/StaggeredTitle"; // Make sure you created this file!
 import { FadeIn } from "../ui/FadeIn";
 import { GlassCard } from "../ui/GlassCard"; 
 import { portfolioConfig } from "../../config/portfolio";
@@ -14,7 +15,6 @@ export const About = () => {
     <Section className="relative flex flex-col justify-center py-20 overflow-hidden md:min-h-[80vh]">
       
       {/* MAIN CONTAINER */}
-      {/* Added z-20 to ensure text stays ON TOP of the winter photo if they overlap */}
       <div className="w-full max-w-[90rem] mx-auto px-4 md:px-8 relative z-20 h-full flex flex-col lg:flex-row items-center lg:items-end gap-12 lg:gap-8 mt-12 lg:mt-0">
 
         {/* --- LEFT COLUMN: Main Photo (Winter/Camera) + Glass Header --- */}
@@ -37,7 +37,7 @@ export const About = () => {
                 </div>
             </FadeIn>
 
-            {/* GLASS HEADER OVERLAY ("WHO AM I?") */}
+            {/* GLASS HEADER OVERLAY */}
             <FadeIn 
                 delay={0.4} 
                 direction="up" 
@@ -51,16 +51,18 @@ export const About = () => {
                     shadow-[0_20px_40px_-10px_rgba(0,0,0,0.1),inset_0_2px_10px_rgba(255,255,255,0.5)]
                     flex items-center justify-center
                 ">
-                    <BigDisplay className="
-                        text-[10vw] lg:text-[6vw] 
-                        leading-none 
+                    {/* UPDATED: 
+                       1. Uses StaggeredTitle for animation.
+                       2. Sizes reduced (8vw/5vw) to fit inside card without clipping.
+                    */}
+                    <StaggeredTitle className="
+                        text-[8vw] md:text-[6vw] 
                         text-brand-pink 
                         drop-shadow-[0_10px_20px_rgba(240,74,117,0.2)]
-                        tracking-tighter
                         whitespace-nowrap
                     ">
                         {about.heading}
-                    </BigDisplay>
+                    </StaggeredTitle>
                 </GlassCard>
             </FadeIn>
 
@@ -107,13 +109,7 @@ export const About = () => {
       </div>
 
       {/* --- WINTER PHOTO (MOVED OUTSIDE CONTAINER) --- */}
-      {/* 1. Position: absolute bottom-0 right-0 relative to the SECTION, not the container.
-          2. Responsive Widths: 
-             - Mobile: w-[50vw] (Half screen width)
-             - Tablet: w-[40vw] 
-             - Desktop: w-[30vw] / max-w-[500px]
-          3. Z-Index: z-10 (Sits behind text which is z-20)
-      */}
+      {/* Positioned absolutely at bottom-right of the SECTION */}
       <FadeIn 
           delay={0.5} 
           direction="left" 
