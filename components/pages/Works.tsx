@@ -12,7 +12,7 @@ import { portfolioConfig } from "../../config/portfolio";
 
 const MotionGlassCard = motion(GlassCard);
 
-// --- HELPER: MAGNETIC BUTTON (Used for Main Navigation) ---
+// --- HELPER: MAGNETIC BUTTON ---
 const MagneticButton = ({ children, onClick, label, className = "" }: { children: React.ReactNode, onClick: () => void, label: string, className?: string }) => {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -54,10 +54,10 @@ const MagneticButton = ({ children, onClick, label, className = "" }: { children
     );
 };
 
-// --- ANIMATION VARIANTS ---
+// --- ANIMATION VARIANTS (TS FIXED) ---
 const slideVariants = {
-    enter: ({ direction, axis }: { direction: number, axis: 'x' | 'y' }) => {
-        if (axis === 'y') {
+    enter: ({ direction, axis }: { direction: number; axis: "x" | "y" }) => {
+        if (axis === "y") {
             return { x: 0, y: -300, opacity: 0, scale: 0.9 };
         }
         return { x: direction > 0 ? 300 : -300, y: 0, opacity: 0, scale: 0.9 };
@@ -68,10 +68,14 @@ const slideVariants = {
         y: 0,
         opacity: 1,
         scale: 1,
-        transition: { type: "spring", stiffness: 300, damping: 30 }
+        transition: { 
+            type: "spring" as const, // Fix: Explicitly cast to 'spring' literal
+            stiffness: 300, 
+            damping: 30 
+        }
     },
-    exit: ({ direction, axis }: { direction: number, axis: 'x' | 'y' }) => {
-         if (axis === 'y') {
+    exit: ({ direction, axis }: { direction: number; axis: "x" | "y" }) => {
+        if (axis === "y") {
             return { zIndex: 0, x: 0, y: 300, opacity: 0, scale: 0.9, transition: { duration: 0.2 } };
         }
         return { zIndex: 0, x: direction < 0 ? 300 : -300, y: 0, opacity: 0, scale: 0.9, transition: { duration: 0.2 } };
@@ -216,31 +220,31 @@ export const Works = () => {
         </div>
 
         <div className="flex flex-col items-center lg:items-end text-center lg:text-right order-2 lg:order-2">
-           <MotionGlassCard 
-             layout 
-             transition={{ layout: { duration: 0.5, type: "spring", stiffness: 100, damping: 20 } }}
-             className="p-8 md:p-10 rounded-[2.5rem] w-full max-w-lg backdrop-blur-3xl bg-white/10 border border-white/20 overflow-hidden"
-             initial={{ opacity: 0, x: 50 }}
-             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-           >
-             <AnimatePresence mode="popLayout">
-               <motion.div
-                 key={activeCategory.id}
-                 initial={{ opacity: 0, y: 20 }}
-                 animate={{ opacity: 1, y: 0 }}
-                 exit={{ opacity: 0, y: -20 }}
-                 transition={{ duration: 0.4 }}
-               >
-                 <h2 className="font-display font-bold text-3xl md:text-5xl text-brand-pink uppercase mb-6 leading-none drop-shadow-sm text-center">
-                   {activeCategory.title}
-                 </h2>
-                 <div className="w-16 h-1 bg-brand-pink/30 rounded-full mb-6 mx-auto lg:mx-0 lg:ml-auto" />
-                 <p className="font-sans text-brand-text text-lg leading-relaxed font-light text-justify">
-                   {activeCategory.description}
-                 </p>
-               </motion.div>
-             </AnimatePresence>
-           </MotionGlassCard>
+            <MotionGlassCard 
+              layout 
+              transition={{ layout: { duration: 0.5, type: "spring", stiffness: 100, damping: 20 } }}
+              className="p-8 md:p-10 rounded-[2.5rem] w-full max-w-lg backdrop-blur-3xl bg-white/10 border border-white/20 overflow-hidden"
+              initial={{ opacity: 0, x: 50 }}
+              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
+            >
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={activeCategory.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <h2 className="font-display font-bold text-3xl md:text-5xl text-brand-pink uppercase mb-6 leading-none drop-shadow-sm text-center">
+                    {activeCategory.title}
+                  </h2>
+                  <div className="w-16 h-1 bg-brand-pink/30 rounded-full mb-6 mx-auto lg:mx-0 lg:ml-auto" />
+                  <p className="font-sans text-brand-text text-lg leading-relaxed font-light text-justify">
+                    {activeCategory.description}
+                  </p>
+                </motion.div>
+              </AnimatePresence>
+            </MotionGlassCard>
         </div>
       </div>
 
@@ -248,7 +252,7 @@ export const Works = () => {
         className="absolute bottom-10 left-0 right-0 flex justify-center z-50 pointer-events-auto"
         initial={{ y: 100, opacity: 0 }}
         animate={isInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
+        transition={{ type: "spring" as const, stiffness: 200, damping: 20, delay: 0.1 }}
       >
         <Dock 
           items={works.categories}
@@ -257,7 +261,7 @@ export const Works = () => {
         />
       </motion.div>
 
-      {/* --- FULLSCREEN PREVIEW MODAL (CLEANED UP) --- */}
+      {/* --- FULLSCREEN PREVIEW MODAL --- */}
       <AnimatePresence>
           {isModalOpen && (
               <motion.div 
@@ -301,18 +305,17 @@ export const Works = () => {
                           src={currentImage} 
                           alt="Work Preview"
                           className={`
-                             block 
-                             w-auto h-auto 
-                             max-w-full 
-                             ${!isGlassDisabled ? 'max-h-[calc(85vh-16px)]' : 'max-h-[85vh]'}
-                             object-contain
-                             bg-zinc-900
+                              block 
+                              w-auto h-auto 
+                              max-w-full 
+                              ${!isGlassDisabled ? 'max-h-[calc(85vh-16px)]' : 'max-h-[85vh]'}
+                              object-contain
+                              bg-zinc-900
                           `}
                         />
                       </div>
                   </motion.div>
 
-                  {/* ONLY BACK BUTTON - CENTERED */}
                   <div className="mt-8 flex justify-center" onClick={(e) => e.stopPropagation()}>
                       <motion.button
                           initial={{ opacity: 0, y: 20 }}
