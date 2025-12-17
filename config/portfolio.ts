@@ -12,17 +12,11 @@ export const portfolioConfig = {
   },
   about: {
     heading: "WHO AM I?",
-    // Split into logical paragraphs for better layout control
     bioP1: "Art has been meaningful to me from the very beginning. It became a way for me to express my own feelings, and with the right knowledge and understanding, to communicate ideas that others could also connect with. Art carries multiple meanings and interpretations, and in that way, it has the power to reach, help, and move people.",
-    
     bioP2: "As I continue my journey as a college student, I have come to realize that art can be more than personal expression. One of the things that continually reignites my passion – especially during moments of exhaustion or near burnout – is learning the true purpose of a designer and a media practitioner. With this role comes responsibility: to create not only for oneself, but for the people who will experience and use the work.",
-    
     bioP3: "A key lesson I will always carry with me is the Design Thinking process. It taught me to approach design with empathy, intention, and problem-solving at its core. This mindset reshaped how I view creativity – not just as making something visually appealing, but as designing with purpose, clarity, and impact.",
-    
-    // New Quote Section
     quote: "“We spend a lot time designing the bridge, but not enough time thinking about the people who are crossing it.”",
     quoteAuthor: "– Dr. Prabhjot Singh, Director of Systems Design at the Earth Institute",
-
     cardName: "Jaon Ae-dam Gatchalian",
     cardRole: "Motion Designer, 3D Animator, & Graphics Designer",
   },
@@ -138,9 +132,9 @@ export const portfolioConfig = {
         title: "UI / UX DESIGN",
         description: "UI/UX Design is a discipline I only encountered in college, yet it opened an entirely new way of thinking for me. It reshaped how I understand design – not just as visuals, but as experience. This field made me more aware of users, systems, and ethical responsibility, and it is something I have grown to love deeply.",
         images: [
-          "/assets/works/uiux-main.png",
-          "/assets/works/uiux-sub1.png",
-          "/assets/works/uiux-sub2.png",
+          "/works-assets/ui-design/ui-1.png",
+          "/works-assets/ui-design/ui-2.png",
+          "/works-assets/ui-design/ui-3.png"
         ]
       },
       {
@@ -149,9 +143,12 @@ export const portfolioConfig = {
         title: "CHARACTER DESIGN",
         description: "Breathing life into concepts through visual storytelling, shape language, and expressive characterization.",
         images: [
-           "/assets/works/char1.png",
-           "/assets/works/char2.png",
-           "/assets/works/char3.png"
+           "/works-assets/char-design/char-design-1.png",
+           "/works-assets/char-design/char-design-2.png",
+           "/works-assets/char-design/char-design-3.png",
+           "/works-assets/char-design/char-design-4.png",
+           "/works-assets/char-design/char-design-5.png",
+           "/works-assets/char-design/char-design-6.png"
         ]
       },
       {
@@ -160,9 +157,16 @@ export const portfolioConfig = {
         title: "GRAPHIC DESIGN",
         description: "Communicating ideas through typography, imagery, and color to create compelling visual compositions.",
         images: [
-           "/assets/works/graphic1.png",
-           "/assets/works/graphic2.png",
-           "/assets/works/graphic3.png"
+           "/works-assets/graphics-design/graphics-design-1.png",
+           "/works-assets/graphics-design/graphics-design-2.png",
+           "/works-assets/graphics-design/graphics-design-3.png",
+           "/works-assets/graphics-design/graphics-design-4.png",
+           "/works-assets/graphics-design/graphics-design-5.jpg", // Note: This one is .jpg
+           "/works-assets/graphics-design/graphics-design-6.png",
+           "/works-assets/graphics-design/graphics-design-7.png",
+           "/works-assets/graphics-design/graphics-design-8.png",
+           "/works-assets/graphics-design/graphics-design-9.png",
+           "/works-assets/graphics-design/graphics-design-10.png"
         ]
       },
       {
@@ -171,9 +175,14 @@ export const portfolioConfig = {
         title: "3D MODELLING",
         description: "Sculpting and rendering three-dimensional assets to create immersive environments and detailed props.",
         images: [
-           "/assets/works/3d1.png",
-           "/assets/works/3d2.png",
-           "/assets/works/3d3.png"
+           "/works-assets/3d-model/3d-model-1.png",
+           "/works-assets/3d-model/3d-model-2.png",
+           "/works-assets/3d-model/3d-model-3.png",
+           "/works-assets/3d-model/3d-model-4.png",
+           "/works-assets/3d-model/3d-model-5.png",
+           "/works-assets/3d-model/3d-model-6.png",
+           "/works-assets/3d-model/3d-model-7.png",
+           "/works-assets/3d-model/3d-model-8.png"
         ]
       },
       {
@@ -182,9 +191,16 @@ export const portfolioConfig = {
         title: "FIRST YEAR WORKS",
         description: "A collection of my early explorations and foundational projects that started my creative journey.",
         images: [
-           "/assets/works/fy1.png",
-           "/assets/works/fy2.png",
-           "/assets/works/fy3.png"
+           "/works-assets/1st-year-works/year-works-1.jpg",
+           "/works-assets/1st-year-works/year-works-2.jpg",
+           "/works-assets/1st-year-works/year-works-3.jpg",
+           "/works-assets/1st-year-works/year-works-4.jpg",
+           "/works-assets/1st-year-works/year-works-5.jpg",
+           "/works-assets/1st-year-works/year-works-6.jpg",
+           "/works-assets/1st-year-works/year-works-7.jpg",
+           "/works-assets/1st-year-works/year-works-8.jpg",
+           "/works-assets/1st-year-works/year-works-9.jpg",
+           "/works-assets/1st-year-works/year-works-10.jpg"
         ]
       },
       {
@@ -193,9 +209,29 @@ export const portfolioConfig = {
         title: "PHOTOGRAPHY",
         description: "Capturing moments, light, and composition to tell stories through the lens. A collection of street, portrait, and editorial photography.",
         images: [
-           "/assets/works/photo1.png",
-           "/assets/works/photo2.png",
-           "/assets/works/photo3.png"
+           "/works-assets/photography/photography-1.JPG",
+           "/works-assets/photography/photography-2.JPG",
+           "/works-assets/photography/photography-3.jpg", // The screenshot shows .jpg for 3 onwards
+           "/works-assets/photography/photography-4.jpg",
+           "/works-assets/photography/photography-5.jpg",
+           "/works-assets/photography/photography-6.jpg",
+           "/works-assets/photography/photography-7.JPG", // 7 is .JPG
+           "/works-assets/photography/photography-8.JPG",
+           "/works-assets/photography/photography-9.JPG",
+           "/works-assets/photography/photography-10.JPG",
+           "/works-assets/photography/photography-11.JPG",
+           "/works-assets/photography/photography-12.JPG",
+           "/works-assets/photography/photography-13.JPG",
+           "/works-assets/photography/photography-14.JPG",
+           "/works-assets/photography/photography-15.JPG",
+           "/works-assets/photography/photography-16.JPG",
+           "/works-assets/photography/photography-17.JPG",
+           "/works-assets/photography/photography-18.JPG",
+           "/works-assets/photography/photography-19.JPG",
+           "/works-assets/photography/photography-20.JPG",
+           "/works-assets/photography/photography-21.JPG",
+           "/works-assets/photography/photography-22.JPG",
+           "/works-assets/photography/photography-23.JPG"
         ]
       }
     ]
@@ -212,7 +248,6 @@ export const portfolioConfig = {
         date: "December 2025",
         conference: "ICAITE - Japan",
         abstract: "An in-depth analysis of how generative AI tools are reshaping design pedagogy, focusing on the ethical implications and adaptation strategies of graduate faculty members.",
-        // Placeholder link - Replace this with your actual Drive link
         link: "https://drive.google.com/" 
       }
     ]
@@ -220,7 +255,7 @@ export const portfolioConfig = {
   contact: {
     heading: "REACH OUT!",
     subHeading: "Have a project in mind?\nLet's build something extraordinary.",
-    email: "jaon.aedam25@gmail.com", // Replace with your actual email
+    email: "jaon.aedam25@gmail.com", 
     socials: [
       { label: "LinkedIn", url: "https://linkedin.com" },
       { label: "Behance", url: "https://behance.net" },
