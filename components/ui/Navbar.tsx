@@ -37,10 +37,12 @@ export const Navbar = () => {
 
   // --- 1. GSAP DOCK MAGNIFICATION LOGIC ---
   useGSAP(() => {
+    // Only run on non-touch devices to save resources
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const buttons = buttonRefs.current;
     const container = containerRef.current;
     
-    // Only run if we have elements
     if (!container || buttons.length === 0) return;
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -48,38 +50,27 @@ export const Navbar = () => {
 
         buttons.forEach((btn) => {
             if (!btn) return;
-
-            // Get the center X position of the button
             const rect = btn.getBoundingClientRect();
             const btnCenterX = rect.left + rect.width / 2;
-            
-            // Calculate distance from mouse to button center
             const distance = Math.abs(mouseX - btnCenterX);
             
-            // MATH: Gaussian-like curve for smooth scaling
-            // Max influence distance: 150px
-            // Max scale: 1.5x
             const maxDistance = 150;
             let scale = 1;
 
             if (distance < maxDistance) {
-                // Normalize distance (0 = center, 1 = edge of influence)
                 const val = 1 - distance / maxDistance;
-                // Apply sine ease for smoother "hump" shape
                 scale = 1 + (Math.sin(val * Math.PI / 2)) * 0.6; 
             }
 
-            // Apply to GSAP
             gsap.to(btn, {
                 scale: scale,
-                duration: 0.1, // Very snappy
+                duration: 0.1,
                 overwrite: "auto",
             });
         });
     };
 
     const handleMouseLeave = () => {
-        // Reset all buttons to scale 1
         buttons.forEach((btn) => {
             if (btn) {
                 gsap.to(btn, {
@@ -92,17 +83,15 @@ export const Navbar = () => {
         });
     };
 
-    // Attach listeners
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mouseleave", handleMouseLeave);
 
-    // Cleanup
     return () => {
         container.removeEventListener("mousemove", handleMouseMove);
         container.removeEventListener("mouseleave", handleMouseLeave);
     };
 
-  }, { scope: containerRef }); // Scope to this component
+  }, { scope: containerRef });
 
 
   // --- 2. SCROLL STATE LOGIC ---
@@ -130,7 +119,6 @@ export const Navbar = () => {
 
   return (
     <>
-    {/* Motion Div handles the Layout Position (Bottom -> Top Left) */}
     <motion.div
       layout
       transition={{ 
@@ -139,16 +127,15 @@ export const Navbar = () => {
         damping: 20 
       }}
       className={`
+        /* FIX: Hidden on mobile (default), Visible on medium screens+ (md:block) */
+        hidden md:block
         fixed z-[100] 
         ${isLanding 
-          ? "bottom-[15%] left-1/2 -translate-x-1/2" // Center Bottom
-          : "top-6 left-6 md:top-8 md:left-8"         // Top Left
+          ? "bottom-[15%] left-1/2 -translate-x-1/2" 
+          : "top-6 left-6 md:top-8 md:left-8"
         }
       `}
     >
-      {/* Container Ref attached here for GSAP mouse listeners 
-        Removed 'scale' from parent classes so it doesn't conflict with button scaling
-      */}
       <div ref={containerRef}> 
         <GlassCard className="
           flex items-end gap-2 p-3 rounded-2xl
@@ -158,7 +145,6 @@ export const Navbar = () => {
           {navItems.map((item, index) => (
             <NavButton 
               key={item.id} 
-              // Store ref in array
               ref={(el) => { buttonRefs.current[index] = el }}
               item={item} 
               onClick={() => scrollToSection(item.id)}
@@ -173,14 +159,12 @@ export const Navbar = () => {
 };
 
 // --- SUB-COMPONENT: NAV BUTTON ---
-// ForwardRef needed to let parent access the DOM element for GSAP
 const NavButton = React.forwardRef<HTMLButtonElement, { item: any, onClick: () => void, isLanding: boolean }>(
   ({ item, onClick, isLanding }, ref) => {
     return (
         <button
             ref={ref}
             onClick={onClick}
-            // Removed Framer 'whileHover' scale to avoid conflict with GSAP
             className="
                 group relative 
                 w-10 h-10 md:w-12 md:h-12 
@@ -191,7 +175,6 @@ const NavButton = React.forwardRef<HTMLButtonElement, { item: any, onClick: () =
                 origin-bottom 
             "
         >
-            {/* Tooltip Label */}
             <span className={`
                 absolute left-1/2 -translate-x-1/2 
                 px-2 py-1 
@@ -200,14 +183,13 @@ const NavButton = React.forwardRef<HTMLButtonElement, { item: any, onClick: () =
                 whitespace-nowrap
                 z-50
                 ${isLanding 
-                  ? "-top-10" // On Landing: Text is ABOVE
-                  : "top-full mt-2" // On Top Left: Text is BELOW
+                  ? "-top-10" 
+                  : "top-full mt-2" 
                 }
             `}>
                 {item.label}
             </span>
 
-            {/* Icon */}
             <svg 
                 viewBox="0 0 24 24" 
                 fill="none" 

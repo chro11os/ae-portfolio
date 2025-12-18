@@ -13,9 +13,18 @@
 html {
   height: 100%;
   width: 100%;
-  /* CRITICAL FIX: Native Scroll Snap + Smooth Behavior */
-  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
+  /* CRITICAL: Prevent horizontal scroll blowout globally */
+  overflow-x: hidden; 
+}
+
+/* FIX: Only apply Scroll Snap on Desktop (Large Screens) */
+/* This preserves your original design for desktop users, 
+   while giving mobile users normal scrolling. */
+@media (min-width: 1024px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 body {
@@ -26,6 +35,7 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden; /* Double safety to prevent side-scrolling */
 }
 
 /* --- CURSOR HIDING LOGIC --- */

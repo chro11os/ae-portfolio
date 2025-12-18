@@ -11,15 +11,19 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
       <section
         ref={ref}
         className={`
-          h-screen 
+          /* MOBILE DEFAULT: Flexible height, padding for readability */
+          min-h-screen 
           w-full 
           relative 
-          overflow-hidden 
+          py-20
           
-          snap-start 
-          snap-always
-          
-          [scroll-snap-stop:always] 
+          /* DESKTOP (lg): Strict Fixed Height & Snap (Your Original Design) */
+          lg:h-screen 
+          lg:py-0
+          lg:overflow-hidden 
+          lg:snap-start 
+          lg:snap-always 
+          lg:[scroll-snap-stop:always] 
           
           ${className}
         `}
