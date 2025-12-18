@@ -17,20 +17,21 @@ const navItems = [
 
 export const Navbar = () => {
   const [isLanding, setIsLanding] = useState(true);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const navWrapperRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef(null);
+  const buttonRefs = useRef([]);
+  const navWrapperRef = useRef(null);
 
-  // --- 1. GSAP POSITION ANIMATION ---
+  // --- 1. GSAP POSITION ANIMATION (FIXED) ---
   useGSAP(() => {
     const wrapper = navWrapperRef.current;
     if (!wrapper) return;
 
     if (isLanding) {
         // STATE: HOME (Bottom Center)
+        // We use 'top' with 'vh' units to mimic being at the bottom.
+        // This ensures we animate top -> top, avoiding the 'auto' blink issue.
         gsap.to(wrapper, {
-            top: "auto",
-            bottom: "15%",
+            top: "85vh",   // Approx 15% from bottom
             left: "50%",
             xPercent: -50,
             duration: 0.6,
@@ -39,49 +40,40 @@ export const Navbar = () => {
     } else {
         // STATE: SCROLLED (Top Left)
         gsap.to(wrapper, {
-            top: "2rem",     // approx md:top-8
-            bottom: "auto",
-            left: "2rem",    // approx md:left-8
-            xPercent: 0,     // Reset the centering transform
+            top: "2rem",    // approx md:top-8
+            left: "2rem",   // approx md:left-8
+            xPercent: 0,    // Remove centering
             duration: 0.6,
             ease: "power3.out"
         });
     }
   }, [isLanding]); 
 
-
-  // --- 2. ROBUST SCROLL DETECTION (Event Capture) ---
+  // --- 2. ROBUST SCROLL DETECTION ---
   useEffect(() => {
-    const handleScroll = (e: Event) => {
-      // The 'true' parameter in addEventListener allows us to catch 
-      // scroll events from ANY child element (like <main>)
-      const target = e.target as HTMLElement;
-
+    const handleScroll = (e) => {
+      const target = e.target;
       // Only care about the main scroller
       if (target.tagName === 'MAIN') {
-        const threshold = window.innerHeight * 0.3; // Trigger sooner (30% scroll)
+        const threshold = window.innerHeight * 0.3; 
         const isHome = target.scrollTop < threshold;
-        
-        // Only update state if it actually changed to prevent re-renders
         setIsLanding((prev) => (prev !== isHome ? isHome : prev));
       }
     };
 
-    // 'true' enables Capture Phase listening
     window.addEventListener("scroll", handleScroll, true);
-    
     return () => window.removeEventListener("scroll", handleScroll, true);
   }, []);
 
-
-  // --- 3. DOCK MAGNIFICATION (Unchanged) ---
+  // --- 3. DOCK MAGNIFICATION ---
   useGSAP(() => {
-    if (window.matchMedia("(pointer: coarse)").matches) return;
+    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
+    
     const buttons = buttonRefs.current;
     const container = containerRef.current;
     if (!container || buttons.length === 0) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const handleMouseMove = (e) => {
         const mouseX = e.clientX;
         buttons.forEach((btn) => {
             if (!btn) return;
@@ -111,16 +103,14 @@ export const Navbar = () => {
     };
   }, { scope: containerRef });
 
-
   // --- 4. SCROLL HELPER ---
-  const scrollToSection = (id: string) => {
+  const scrollToSection = (id) => {
     const element = document.getElementById(id);
     const mainContainer = document.querySelector('main'); 
     
     if (element) {
         element.scrollIntoView({ behavior: "smooth" });
     } else if (mainContainer) {
-        // Fallback calculation
         const index = navItems.findIndex(item => item.id === id);
         if (index !== -1) {
             mainContainer.scrollTo({ top: index * window.innerHeight, behavior: "smooth" });
@@ -134,8 +124,9 @@ export const Navbar = () => {
       className="
         hidden md:block
         fixed z-[100]
-        /* Initial State: Bottom Center */
-        bottom-[15%] left-1/2 -translate-x-1/2
+        /* Initial State: Matches the 'Landing' GSAP state (Top 85vh) */
+        /* This prevents the initial flash/jump */
+        top-[85vh] left-1/2 -translate-x-1/2
       "
     >
       <div ref={containerRef}> 
@@ -159,9 +150,8 @@ export const Navbar = () => {
   );
 };
 
-// --- NAV BUTTON (Unchanged) ---
-const NavButton = React.forwardRef<HTMLButtonElement, { item: any, onClick: () => void, isLanding: boolean }>(
-  ({ item, onClick, isLanding }, ref) => {
+// --- NAV BUTTON ---
+const NavButton = React.forwardRef(({ item, onClick, isLanding }, ref) => {
     return (
         <button
             ref={ref}
@@ -195,6 +185,5 @@ const NavButton = React.forwardRef<HTMLButtonElement, { item: any, onClick: () =
             </svg>
         </button>
     )
-  }
-);
+});
 NavButton.displayName = "NavButton";
