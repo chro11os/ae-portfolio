@@ -9,7 +9,13 @@ export const AboutDesktop = () => {
   const { about } = portfolioConfig;
 
   return (
-    <Section id="about-desktop" className="relative flex flex-col justify-center py-20 overflow-hidden h-screen hidden lg:flex">
+    <Section 
+      id="about-desktop" 
+      // UPDATED CLASSNAME:
+      // 1. Added 'snap-start': Tells the browser "this is a snap point".
+      // 2. Added 'snap-always': Forces the browser to stop here (prevents skipping over it).
+      className="relative flex flex-col justify-center py-20 overflow-hidden h-screen hidden lg:flex snap-start snap-always"
+    >
       
       {/* MAIN CONTAINER */}
       <div className="w-full max-w-[90rem] mx-auto px-12 relative z-20 h-full flex flex-row items-center gap-20">
@@ -21,14 +27,9 @@ export const AboutDesktop = () => {
             <FadeIn 
                 delay={0.2} 
                 direction="up" 
-                // UPDATED CLASSES HERE:
-                // 1. w-[180%]: Makes the image massive relative to its column.
-                // 2. z-10: Puts it behind the card (which is z-20).
-                // 3. left-1/2 -translate-x-1/2: Centers the huge image horizontally.
                 className="relative w-[110%] aspect-[4/4] flex items-end justify-center z-10 left-1/2 -translate-x-1/2"
             >
                 <div className="relative w-full h-full">
-                    {/* Ensure this image is a PNG with a transparent background */}
                     <Image 
                         src="/assets/about-me-section/above-header-photo.png"
                         alt="Portrait"
@@ -40,7 +41,6 @@ export const AboutDesktop = () => {
             </FadeIn>
 
             {/* 3D CARD TITLE OVERLAY */}
-            {/* z-20 ensures this sits IN FRONT of the image's z-10 */}
             <div className="absolute bottom-0 translate-y-[50%] left-1/2 -translate-x-1/2 w-[140%] z-20">
                 <FadeIn delay={0.4} direction="up">
                     <div className="

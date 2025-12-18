@@ -10,44 +10,30 @@
   --color-brand-text: #333333;
 }
 
-html {
+/* --- SCROLL LOCK --- */
+/* We disable window scrolling here so the <main> tag can handle the snapping */
+html, body {
   height: 100%;
   width: 100%;
-  scroll-behavior: smooth;
-  /* CRITICAL: Prevent horizontal scroll blowout globally */
-  overflow-x: hidden; 
-}
-
-/* FIX: Only apply Scroll Snap on Desktop (Large Screens) */
-/* This preserves your original design for desktop users, 
-   while giving mobile users normal scrolling. */
-@media (min-width: 1024px) {
-  html {
-    scroll-snap-type: y mandatory;
-  }
-}
-
-body {
   margin: 0;
   padding: 0;
+  overflow: hidden; 
+}
+
+/* Base styles */
+body {
   background-color: var(--color-brand-bg);
   color: var(--color-brand-text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden; /* Double safety to prevent side-scrolling */
 }
 
 /* --- CURSOR HIDING LOGIC --- */
-/* Only hide cursor on devices that have a mouse (pointer: fine) */
 @media (pointer: fine) {
-  
-  /* 1. Hide default arrow on everything */
   body {
     cursor: none;
   }
-
-  /* 2. FORCE hide the 'pointer' hand on links, buttons, and inputs */
   a, 
   button, 
   input, 
@@ -66,26 +52,21 @@ body {
 }
 
 /* --- PAPERS SECTION REFINEMENTS --- */
-
-/* Add specialized perspective for the 3D Paper Card */
 .perspective-1000 {
   perspective: 1000px;
 }
 
-/* Ensures the expanded text block maintains its layout integrity */
 .papers-description-container {
-  max-width: 65ch; /* Optimal line length for readability */
+  max-width: 65ch; 
   text-rendering: optimizeLegibility;
 }
 
-/* Smooth transition for hover effects on text blocks and clean manuscript alignment */
 .text-justify {
   text-align: justify;
   text-justify: inter-word;
   hyphens: auto;
 }
 
-/* Responsive adjustments for large text blocks to ensure readability on mobile */
 @media (max-width: 768px) {
   .text-justify {
     text-align: left; 
@@ -93,7 +74,6 @@ body {
   }
 }
 
-/* Utility for smooth image rendering in the PaperViewer */
 .viewer-content img {
   user-select: none;
   -webkit-user-drag: none;
