@@ -32,7 +32,7 @@ export const EducationDesktop = () => {
 
   return (
     // STRICT DESKTOP RULES: h-screen, overflow-hidden
-    <Section id="education-desktop" className="hidden lg:flex flex-col justify-start px-12 xl:px-24 pt-32 h-screen overflow-hidden relative">
+    <Section id="education-desktop" className="hidden lg:flex flex-col justify-start px-12 xl:px-24 pt-32 overflow-hidden relative">
       
       {/* --- TOP HEADER ROW --- */}
       <div className="w-full max-w-[90rem] mx-auto z-20 flex justify-end">
@@ -43,7 +43,7 @@ export const EducationDesktop = () => {
                 ref={titleRef}
                 className="
                     font-display font-bold 
-                    text-[10vw] leading-[0.8] 
+                    text-[clamp(4rem,10vw,10rem)] leading-[0.8] 
                     uppercase tracking-tighter text-right
                     text-transparent bg-clip-text
                     bg-[linear-gradient(110deg,#F04A75_20%,#ffc4d6_40%,#F04A75_60%)]

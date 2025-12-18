@@ -11,17 +11,14 @@ export const AboutDesktop = () => {
   return (
     <Section 
       id="about-desktop" 
-      // UPDATED CLASSNAME:
-      // 1. Added 'snap-start': Tells the browser "this is a snap point".
-      // 2. Added 'snap-always': Forces the browser to stop here (prevents skipping over it).
-      className="relative flex flex-col justify-center py-20 overflow-hidden h-screen hidden lg:flex snap-start snap-always"
+      className="relative flex flex-col justify-center py-20 overflow-hidden hidden lg:flex"
     >
       
       {/* MAIN CONTAINER */}
       <div className="w-full max-w-[90rem] mx-auto px-12 relative z-20 h-full flex flex-row items-center gap-20">
 
         {/* --- LEFT COLUMN: Transparent Image + 3D Title Card --- */}
-        <div className="relative w-[45%] flex flex-col items-center justify-center mb-12">
+        <div className="relative w-[40%] max-w-[420px] mx-auto flex flex-col items-center justify-center mb-12">
             
             {/* PINK PORTRAIT IMAGE (TRANSPARENT) */}
             <FadeIn 
@@ -73,11 +70,27 @@ export const AboutDesktop = () => {
             
         </div>
 
-        {/* --- RIGHT COLUMN: Bio & Quote (Unchanged) --- */}
-        <div className="relative w-[55%] flex flex-col items-center text-center pl-8">
+        {/* --- RIGHT COLUMN: Bio & Quote --- */}
+        <div className="relative w-[60%] flex flex-col justify-center pl-8">
             
-            {/* BIO TEXT BLOCK */}
-            <div className="relative z-10 max-w-xl space-y-8">
+            {/* BIO TEXT & WRAPPING PHOTO CONTAINER */}
+            <div className="relative z-10 w-full block">
+                 
+                 {/* WINTER PHOTO (Floated to allow text wrapping) */}
+                 <FadeIn 
+                    delay={0.6} 
+                    direction="left" 
+                    className="float-right w-[40%] max-w-[280px] ml-10 mb-6 relative aspect-[3/4] scale-x-[-1]"
+                 >
+                      <Image 
+                          src="/assets/about-me-section/left-photo.png"
+                          alt="Winter Portrait"
+                          fill
+                          className="object-contain object-bottom"
+                      />
+                 </FadeIn>
+
+                 {/* BIO TEXT BLOCK */}
                  <div className="space-y-6 text-[0.95rem] leading-relaxed text-brand-text/80 font-medium text-justify">
                     <FadeIn direction="up" delay={0.4}><p>{about.bioP1}</p></FadeIn>
                     <FadeIn direction="up" delay={0.5}><p>{about.bioP2}</p></FadeIn>
@@ -86,8 +99,8 @@ export const AboutDesktop = () => {
             </div>
 
             {/* QUOTE BLOCK */}
-            <div className="w-full flex justify-end mt-24 pr-8 relative">
-                 <FadeIn direction="up" delay={0.7} className="max-w-sm text-right z-20 mr-24">
+            <div className="w-full flex justify-end mt-12 pr-4 relative clear-both">
+                 <FadeIn direction="up" delay={0.7} className="max-w-sm text-right z-20">
                      <blockquote className="font-display text-lg text-brand-pink italic leading-snug mb-3">
                         {about.quote}
                      </blockquote>
@@ -98,27 +111,6 @@ export const AboutDesktop = () => {
             </div>
         </div>
       </div>
-
-      {/* --- WINTER PHOTO (Bottom Right - Unchanged) --- */}
-      <FadeIn 
-          delay={0.6} 
-          direction="left" 
-          className="absolute bottom-0 right-12 z-10 pointer-events-auto"
-      >
-          <div className="
-              relative 
-              aspect-[3/4] scale-x-[-1]
-              w-[25vw] min-w-[240px] max-w-[450px]
-              transition-all duration-700 ease-[cubic-bezier(0.25,0.1,0.25,1)]
-          ">
-              <Image 
-                  src="/assets/about-me-section/left-photo.png"
-                  alt="Winter Portrait"
-                  fill
-                  className="object-contain object-bottom"
-              />
-          </div>
-      </FadeIn>
 
       {/* Background Gradients */}
       <div className="absolute top-0 right-0 w-[50vw] h-[50vw] bg-brand-pink/5 rounded-full blur-[120px] pointer-events-none -z-10 translate-x-1/2 -translate-y-1/2" />

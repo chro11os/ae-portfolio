@@ -2,16 +2,16 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Section } from "../ui/Section";
-import { BigDisplay } from "../ui/Typography";
-import { FadeIn } from "../ui/FadeIn";
-import { GlassCard } from "../ui/GlassCard"; 
-import { portfolioConfig } from "../../config/portfolio";
-import { useInfiniteLoop } from "../../hooks/useInfiniteLoop";
+import { Section } from "../../ui/Section";
+import { BigDisplay } from "../../ui/Typography";
+import { FadeIn } from "../../ui/FadeIn";
+import { GlassCard } from "../../ui/GlassCard"; 
+import { portfolioConfig } from "../../../config/portfolio";
+import { useInfiniteLoop } from "../../../hooks/useInfiniteLoop";
 
 const MotionGlassCard = motion(GlassCard);
 
-export const Skills = () => {
+export const SkillsDesktop = () => {
   const { skills } = portfolioConfig;
   
   // CONFIGURATION
@@ -36,19 +36,19 @@ export const Skills = () => {
   }, []); 
 
   return (
-    <Section className="flex flex-col items-center justify-center relative overflow-hidden">
+    <Section className="flex flex-col items-center justify-center relative overflow-hidden w-full">
       
       {/* BACKGROUND TEXT */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
         <FadeIn delay={0.2} duration={1.5}>
-          <BigDisplay className="text-[40vw] leading-none text-brand-pink/20 select-none tracking-tighter drop-shadow-[0_35px_60px_rgba(0,0,0,0.3)]">
+          <BigDisplay className="text-[clamp(15rem,35vw,30rem)] leading-none text-brand-pink/20 select-none tracking-tighter drop-shadow-[0_35px_60px_rgba(0,0,0,0.3)]">
             {skills.heading}
           </BigDisplay>
         </FadeIn>
       </div>
 
       {/* MAIN CONTENT */}
-      <div className="z-10 w-full flex flex-col items-center gap-12 md:gap-16 pt-20">
+      <div className="z-10 w-full flex flex-col items-center gap-16">
         
         {/* INFINITE CAROUSEL */}
         <div 
@@ -58,7 +58,7 @@ export const Skills = () => {
         >
             <motion.div 
                 ref={containerRef}
-                className="flex gap-8 md:gap-12 w-max px-8" 
+                className="flex gap-12 w-max px-8" 
                 style={{ x: baseX }} 
             >
                 {repeatedSkills.map((skill, index) => (
@@ -97,7 +97,7 @@ const SkillCard = ({ skill, index, onHover, isHovered }: any) => (
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={`
-              relative w-24 h-24 md:w-32 md:h-32 rounded-3xl overflow-hidden 
+              relative w-32 h-32 rounded-3xl overflow-hidden 
               transition-all duration-300
               ${isHovered 
               ? "shadow-[0_20px_30px_-10px_rgba(0,0,0,0.3)] opacity-100 grayscale-0" 
@@ -117,17 +117,13 @@ const SkillCard = ({ skill, index, onHover, isHovered }: any) => (
 );
 
 const SkillInfoDisplay = ({ activeSkill }: { activeSkill: any }) => (
-  <div className="w-full max-w-3xl px-6 relative z-20">
+  <div className="w-full max-w-4xl px-6 relative z-20">
     <MotionGlassCard
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
       transition={{ duration: 0.5, delay: 0.5 }} 
-      // FIX APPLIED HERE:
-      // Changed 'min-h-[220px]' to 'h-[300px]'.
-      // This strict height prevents the container above (icons) from jumping 
-      // because the flexbox center point never recalculates.
-      className="p-8 md:p-10 rounded-[2.5rem] h-[300px] flex flex-col justify-center items-center text-center overflow-hidden"
+      className="p-10 rounded-[2.5rem] h-[300px] flex flex-col justify-center items-center text-center overflow-hidden"
     >
       <AnimatePresence mode="wait">
         {activeSkill ? (
@@ -139,11 +135,11 @@ const SkillInfoDisplay = ({ activeSkill }: { activeSkill: any }) => (
             transition={{ duration: 0.2, ease: "easeOut" }}
             className="flex flex-col items-center justify-center h-full"
           >
-            <h3 className="font-display font-bold text-3xl md:text-5xl text-brand-pink uppercase drop-shadow-sm mb-4">
+            <h3 className="font-display font-bold text-5xl text-brand-pink uppercase drop-shadow-sm mb-4">
               {activeSkill.name}
             </h3>
-            <div className="w-20 h-1.5 bg-brand-pink/20 rounded-full mb-6 shrink-0" />
-            <p className="font-sans text-brand-text text-lg md:text-2xl leading-relaxed font-light">
+            <div className="w-24 h-1.5 bg-brand-pink/20 rounded-full mb-6 shrink-0" />
+            <p className="font-sans text-brand-text text-2xl leading-relaxed font-light max-w-3xl">
               {activeSkill.description}
             </p>
           </motion.div>

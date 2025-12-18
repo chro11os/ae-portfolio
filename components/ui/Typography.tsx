@@ -1,15 +1,16 @@
 import React from "react";
 
+interface TypographyProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
 // Updated Clamp: 
 // Min: 3.5rem (Mobile safe)
 // Scaler: 18vw (Responsive but impactful)
 // Max: 22rem (Your original Desktop size)
-export const BigDisplay = ({ children, className }: { children: React.ReactNode, className?: string }) => (
-  <h1 className={`
-    font-display font-bold text-brand-pink leading-[0.8] tracking-tighter select-none 
-    text-[clamp(3.5rem,18vw,22rem)] 
-    ${className}
-  `}>
+export const BigDisplay = ({ children, className = "" }: TypographyProps) => (
+  <h1 className={`font-display font-bold uppercase tracking-tight text-[clamp(3.5rem,15vw,12rem)] ${className}`}>
     {children}
   </h1>
 );

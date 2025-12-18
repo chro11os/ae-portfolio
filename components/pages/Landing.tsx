@@ -11,7 +11,7 @@ export const Landing = () => {
   const { landing, personal } = portfolioConfig;
 
   return (
-    <Section id="landing" className="relative flex flex-col justify-center overflow-hidden h-screen">
+    <Section id="landing" className="relative flex flex-col justify-center overflow-hidden">
       {/* LOGO */}
       <FadeIn delay={0.5} className="absolute top-6 right-6 md:top-12 md:right-12 z-50">
         <SectionHeading className="text-lg md:text-xl">{personal.logo}</SectionHeading>
@@ -20,7 +20,7 @@ export const Landing = () => {
       {/* GIANT TEXT CONTAINER - Moved higher up using items-start and padding-top */}
       <div className="absolute inset-0 flex items-start justify-center z-0 pointer-events-none px-4 pt-[15vh] md:pt-[10vh]">
         <FadeIn duration={1}>
-          <BigDisplay className="drop-shadow-[0_15px_15px_rgba(0,0,0,0.08)] text-center w-full uppercase">
+          <BigDisplay className="text-[clamp(3.5rem,12vw,10rem)] text-brand-pink drop-shadow-[0_15px_15px_rgba(0,0,0,0.08)] text-center w-full uppercase">
             {landing.heading}
           </BigDisplay>
         </FadeIn>
