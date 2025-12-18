@@ -17,21 +17,21 @@ const navItems = [
 
 export const Navbar = () => {
   const [isLanding, setIsLanding] = useState(true);
-  const containerRef = useRef(null);
-  const buttonRefs = useRef([]);
-  const navWrapperRef = useRef(null);
+  
+  // Typed Refs
+  const containerRef = useRef<HTMLDivElement>(null);
+  const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const navWrapperRef = useRef<HTMLDivElement>(null);
 
-  // --- 1. GSAP POSITION ANIMATION (FIXED) ---
+  // --- 1. GSAP POSITION ANIMATION ---
   useGSAP(() => {
     const wrapper = navWrapperRef.current;
     if (!wrapper) return;
 
     if (isLanding) {
         // STATE: HOME (Bottom Center)
-        // We use 'top' with 'vh' units to mimic being at the bottom.
-        // This ensures we animate top -> top, avoiding the 'auto' blink issue.
         gsap.to(wrapper, {
-            top: "85vh",   // Approx 15% from bottom
+            top: "85vh",
             left: "50%",
             xPercent: -50,
             duration: 0.6,
@@ -40,9 +40,9 @@ export const Navbar = () => {
     } else {
         // STATE: SCROLLED (Top Left)
         gsap.to(wrapper, {
-            top: "2rem",    // approx md:top-8
-            left: "2rem",   // approx md:left-8
-            xPercent: 0,    // Remove centering
+            top: "2rem",
+            left: "2rem",
+            xPercent: 0,
             duration: 0.6,
             ease: "power3.out"
         });
@@ -51,8 +51,10 @@ export const Navbar = () => {
 
   // --- 2. ROBUST SCROLL DETECTION ---
   useEffect(() => {
-    const handleScroll = (e) => {
-      const target = e.target;
+    // FIX: Added type 'Event' and cast target to 'HTMLElement'
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      
       // Only care about the main scroller
       if (target.tagName === 'MAIN') {
         const threshold = window.innerHeight * 0.3; 
@@ -73,7 +75,8 @@ export const Navbar = () => {
     const container = containerRef.current;
     if (!container || buttons.length === 0) return;
 
-    const handleMouseMove = (e) => {
+    // FIX: Added type 'MouseEvent'
+    const handleMouseMove = (e: MouseEvent) => {
         const mouseX = e.clientX;
         buttons.forEach((btn) => {
             if (!btn) return;
@@ -104,7 +107,7 @@ export const Navbar = () => {
   }, { scope: containerRef });
 
   // --- 4. SCROLL HELPER ---
-  const scrollToSection = (id) => {
+  const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     const mainContainer = document.querySelector('main'); 
     
@@ -124,8 +127,7 @@ export const Navbar = () => {
       className="
         hidden md:block
         fixed z-[100]
-        /* Initial State: Matches the 'Landing' GSAP state (Top 85vh) */
-        /* This prevents the initial flash/jump */
+        /* Initial State */
         top-[85vh] left-1/2 -translate-x-1/2
       "
     >
@@ -151,7 +153,13 @@ export const Navbar = () => {
 };
 
 // --- NAV BUTTON ---
-const NavButton = React.forwardRef(({ item, onClick, isLanding }, ref) => {
+interface NavButtonProps {
+    item: { id: string; label: string; icon: React.ReactNode };
+    onClick: () => void;
+    isLanding: boolean;
+}
+
+const NavButton = React.forwardRef<HTMLButtonElement, NavButtonProps>(({ item, onClick, isLanding }, ref) => {
     return (
         <button
             ref={ref}
