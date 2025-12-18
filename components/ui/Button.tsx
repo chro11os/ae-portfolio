@@ -18,7 +18,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
   ({ 
     variant = "primary", 
     size = "md", 
-    rounded = "xl", 
+    rounded = "xl",
     className = "", 
     children, 
     href, 

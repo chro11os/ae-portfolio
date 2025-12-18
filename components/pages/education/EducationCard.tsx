@@ -43,7 +43,7 @@ export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
                 relative 
                 bg-gradient-to-br from-gray-50 to-gray-100
                 p-12 rounded-[2.5rem] 
-                min-h-[450px] flex flex-col justify-center 
+                min-h-[450px] max-h-[600px] flex flex-col justify-start overflow-hidden
                 border border-white/60
                 shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] 
                 shadow-[inset_0_2px_4px_rgba(255,255,255,1),inset_0_-2px_4px_rgba(0,0,0,0.05)]
@@ -51,39 +51,42 @@ export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
             "
         >
             {/* PINK PILL LABEL */}
-            <div className="mb-6">
-            <span className="
-                inline-block px-4 py-1.5 rounded-full 
-                bg-brand-pink/10 text-brand-pink 
-                text-xs font-bold tracking-[0.2em] uppercase
-                shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]
-            ">
-                {activeItem.category}
-            </span>
+            <div className="mb-6 shrink-0">
+                <span className="
+                    inline-block px-4 py-1.5 rounded-full 
+                    bg-brand-pink/10 text-brand-pink 
+                    text-xs font-bold tracking-[0.2em] uppercase
+                    shadow-[inset_0_1px_2px_rgba(0,0,0,0.05)]
+                ">
+                    {activeItem.category}
+                </span>
             </div>
 
-            {/* TITLE */}
-            <h2 className="
-                font-display font-bold 
-                text-[3.5rem] md:text-[4.5rem] 
-                text-gray-900 mb-4 
-                uppercase leading-[0.9] tracking-tighter
-                drop-shadow-sm
-            ">
-            {activeItem.title}
-            </h2>
+            {/* SCROLLABLE CONTENT WRAPPER */}
+            <div className="overflow-y-auto pr-4 -mr-4">
+                {/* TITLE */}
+                <h2 className="
+                    font-display font-bold 
+                    text-[3.5rem] md:text-[4.5rem] 
+                    text-gray-900 mb-4 
+                    uppercase leading-[0.9] tracking-tighter
+                    drop-shadow-sm
+                ">
+                {activeItem.title}
+                </h2>
 
-            {/* METADATA */}
-            <div className="flex items-center gap-4 text-brand-pink font-bold text-sm md:text-base mb-8 tracking-widest font-sans uppercase">
-            <span className="drop-shadow-sm">{activeItem.year}</span>
-            <span className="w-1.5 h-1.5 rounded-full bg-brand-pink/40" />
-            <span className="drop-shadow-sm">{activeItem.role || activeItem.grade}</span>
+                {/* METADATA */}
+                <div className="flex items-center gap-4 text-brand-pink font-bold text-sm md:text-base mb-8 tracking-widest font-sans uppercase">
+                <span className="drop-shadow-sm">{activeItem.year}</span>
+                <span className="w-1.5 h-1.5 rounded-full bg-brand-pink/40" />
+                <span className="drop-shadow-sm">{activeItem.role || activeItem.grade}</span>
+                </div>
+
+                {/* DESCRIPTION */}
+                <p className="font-sans text-gray-600 text-lg leading-relaxed font-normal max-w-2xl text-justify pb-10">
+                {activeItem.description}
+                </p>
             </div>
-
-            {/* DESCRIPTION */}
-            <p className="font-sans text-gray-600 text-lg leading-relaxed font-normal max-w-2xl text-justify">
-            {activeItem.description}
-            </p>
 
             {/* BACKGROUND NUMBER */}
             <div className="bg-number absolute right-8 bottom-[-3rem] opacity-[0.04] pointer-events-none select-none overflow-hidden">
