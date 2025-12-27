@@ -1,311 +1,187 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useMemo } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { Section } from "../../ui/Section";
 import { ParallaxText } from "../../ui/ParallaxText";
 import { FadeIn } from "../../ui/FadeIn";
-import { GlassCard } from "../../ui/GlassCard"; 
 import { Dock } from "../../ui/Dock";
 import { portfolioConfig } from "../../../config/portfolio";
-import { Magnetic } from "../../ui/Magnetic";
 import { Button } from "../../ui/Button";
 
-const MotionGlassCard = motion(GlassCard);
-
-// --- ANIMATION VARIANTS (TS FIXED) ---
-const slideVariants = {
-    enter: ({ direction, axis }: { direction: number; axis: "x" | "y" }) => {
-        if (axis === "y") {
-            return { x: 0, y: -300, opacity: 0, scale: 0.9 };
-        }
-        return { x: direction > 0 ? 300 : -300, y: 0, opacity: 0, scale: 0.9 };
-    },
-    center: {
-        zIndex: 1,
-        x: 0,
-        y: 0,
-        opacity: 1,
-        scale: 1,
-        transition: { 
-            type: "spring" as const, // Fix: Explicitly cast to 'spring' literal
-            stiffness: 300, 
-            damping: 30 
-        }
-    },
-    exit: ({ direction, axis }: { direction: number; axis: "x" | "y" }) => {
-        if (axis === "y") {
-            return { zIndex: 0, x: 0, y: 300, opacity: 0, scale: 0.9, transition: { duration: 0.2 } };
-        }
-        return { zIndex: 0, x: direction < 0 ? 300 : -300, y: 0, opacity: 0, scale: 0.9, transition: { duration: 0.2 } };
+// Helper function to generate grid spans for visual variety
+const getGridSpan = (index: number) => {
+    // Pattern based on index % 8
+    const patternIndex = index % 8;
+    
+    switch (patternIndex) {
+        case 0: return "col-span-2 row-span-2"; // 2x2
+        case 3: return "col-span-1 row-span-2"; // 1x2 Tall
+        case 4: return "col-span-2 row-span-1"; // 2x1 Wide
+        case 6: return "col-span-2 row-span-2"; // 2x2
+        default: return "col-span-1 row-span-1"; // 1x1 Standard
     }
 };
 
 export const WorksDesktop = () => {
   const { works } = portfolioConfig;
   const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { amount: 0.3 }); 
+  const isInView = useInView(sectionRef, { amount: 0.1, once: true });
 
   const [activeCategoryId, setActiveCategoryId] = useState(works.categories[0].id);
-  const activeCategory = works.categories.find(c => c.id === activeCategoryId) || works.categories[0];
-  const [focusedIndex, setFocusedIndex] = useState(0);
-  const [direction, setDirection] = useState(0); 
-  const [axis, setAxis] = useState<'x' | 'y'>('x');
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const modalContainerRef = useRef<HTMLDivElement>(null);
-  const modalSheenRef = useRef<HTMLDivElement>(null);
-
-  const isGlassDisabled = ["ui-ux", "graphic-design", "photography"].includes(activeCategory.id);
-
-  const handleNext = () => {
-    setAxis('x');
-    setDirection(1);
-    setFocusedIndex((prev) => (prev + 1) % activeCategory.images.length);
-  };
-
-  const handlePrev = () => {
-    setAxis('x');
-    setDirection(-1);
-    setFocusedIndex((prev) => (prev - 1 + activeCategory.images.length) % activeCategory.images.length);
-  };
+  const activeCategory = useMemo(() => 
+    works.categories.find(c => c.id === activeCategoryId) || works.categories[0], 
+    [activeCategoryId, works.categories]
+  );
 
   const handleCategoryChange = (id: string) => {
-      setAxis('y'); 
-      setDirection(1); 
       setActiveCategoryId(id);
-      setFocusedIndex(0);
+      const gridContainer = document.getElementById("works-grid-container");
+      if (gridContainer) gridContainer.scrollTop = 0;
   };
 
-  useGSAP(() => {
-    if (!isModalOpen || isGlassDisabled) return;
-    const container = modalContainerRef.current;
-    const sheen = modalSheenRef.current;
-    if (!container || !sheen) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-        const rect = container.getBoundingClientRect();
-        const mouseX = ((e.clientX - rect.left) / rect.width) * 100;
-        const mouseY = ((e.clientY - rect.top) / rect.height) * 100;
-
-        gsap.to(sheen, {
-            background: `radial-gradient(circle at ${mouseX}% ${mouseY}%, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0) 70%)`,
-            duration: 0.3,
-            ease: "power2.out"
-        });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [isModalOpen, isGlassDisabled]);
-
-  useEffect(() => {
-    if (!isInView || isModalOpen) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-        if (e.key === "ArrowLeft") handlePrev();
-        if (e.key === "ArrowRight") handleNext();
-    };
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [isInView, activeCategory.images.length, isModalOpen]);
-
-  const currentImage = activeCategory.images[focusedIndex];
-
   return (
-    <Section ref={sectionRef} className="flex flex-col items-center justify-center relative overflow-hidden perspective-1000">
+    <Section ref={sectionRef} className="lg:h-screen lg:max-h-screen lg:overflow-hidden relative bg-brand-bg flex items-center justify-center">
       
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0">
+      {/* TOP NAVIGATION DOCK - Z-60 */}
+      <div className="absolute top-8 left-0 right-0 flex justify-center z-[60]">
+          <Dock 
+              items={works.categories}
+              activeId={activeCategoryId}
+              onSelect={handleCategoryChange}
+          />
+      </div>
+
+      {/* BACKGROUND TITLE - Z-0 */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none">
          <FadeIn delay={0.2} duration={1.5}>
-            <ParallaxText className="text-[clamp(12rem,30vw,25rem)] leading-none text-brand-pink/20 select-none tracking-tighter drop-shadow-[0_10px_30px_rgba(0,0,0,0.15)]">
+            <ParallaxText speed={0.5} className="text-[clamp(12rem,25vw,25rem)] leading-none text-brand-pink/[0.02] select-none tracking-tighter">
               {works.heading}
             </ParallaxText>
          </FadeIn>
       </div>
 
-      <div className="z-10 w-full max-w-7xl px-8 grid grid-cols-2 gap-16 items-center h-full pb-32">
-        <div className="flex flex-col items-center justify-center h-full">
-            <div className="relative w-[600px] h-[400px] flex items-center justify-center">
-                <AnimatePresence initial={false} custom={{ direction, axis }} mode="popLayout">
-                    <motion.div
-                        key={`${activeCategory.id}-${focusedIndex}`}
-                        layoutId={`image-${activeCategory.id}-${focusedIndex}`} 
-                        custom={{ direction, axis }}
-                        variants={slideVariants}
-                        initial="enter"
-                        animate="center"
-                        exit="exit"
-                        onClick={() => setIsModalOpen(true)}
-                        className="
-                            absolute inset-0
-                            cursor-zoom-in 
-                            rounded-3xl 
-                            shadow-[0_20px_50px_-10px_rgba(0,0,0,0.3)] 
-                            overflow-hidden 
-                            border-[6px] border-white/20
-                            bg-zinc-900
-                        "
-                        whileHover={{ 
-                            scale: 1.02, 
-                            rotate: 1,
-                            borderColor: "rgba(255,255,255,0.4)" 
+      <div className="relative z-10 w-full max-w-[1400px] px-8 h-full grid grid-cols-[450px_1fr] gap-20 items-center">
+        
+        {/* LEFT COLUMN: Sidebar Info */}
+        <div className="flex flex-col h-full justify-center relative z-10 pt-16">
+            <AnimatePresence mode="wait">
+                <motion.div
+                    key={activeCategory.id}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: 20 }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
+                    className="space-y-8"
+                >
+                    <h2 className="font-display font-bold text-6xl text-brand-pink uppercase leading-[0.9] tracking-tight">
+                        {activeCategory.title}
+                    </h2>
+                    <div className="w-24 h-1 bg-brand-pink/30 rounded-full" />
+                    
+                    <p className="font-sans text-brand-text/60 text-lg leading-relaxed font-light text-justify pr-8">
+                        {activeCategory.description}
+                    </p>
+
+                    <Button 
+                        variant="outline" 
+                        size="lg" 
+                        className="mt-8 border-brand-pink/30 text-brand-pink hover:bg-brand-pink hover:text-white"
+                        onClick={() => {
+                            const gridContainer = document.getElementById("works-grid-container");
+                            gridContainer?.scrollBy({ top: 400, behavior: 'smooth' });
                         }}
                     >
-                        <div 
-                            className="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-110"
-                            style={{ backgroundImage: `url(${currentImage})` }}
-                        />
-                        <div className="absolute bottom-4 right-6 pointer-events-none">
-                             <span className="font-display font-bold text-white/90 text-5xl drop-shadow-md">
-                                0{focusedIndex + 1}
-                             </span>
-                        </div>
-                    </motion.div>
-                </AnimatePresence>
-
-                <div className="absolute -bottom-28 left-1/2 -translate-x-1/2 flex items-center gap-8 w-max z-20">
-                    <Magnetic>
-                        <button 
-                            onClick={handlePrev} 
-                            aria-label="Previous Project"
-                            className="w-14 h-14 group relative rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_10px_20px_-5px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-brand-pink hover:border-brand-pink hover:scale-110 active:scale-95"
-                        >
-                            <div className="relative z-10 text-brand-text group-hover:text-white transition-colors duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                                </svg>
-                            </div>
-                        </button>
-                    </Magnetic>
-
-                    <Magnetic>
-                        <button 
-                            onClick={handleNext} 
-                            aria-label="Next Project"
-                            className="w-14 h-14 group relative rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-[0_10px_20px_-5px_rgba(0,0,0,0.1)] transition-all duration-300 hover:bg-brand-pink hover:border-brand-pink hover:scale-110 active:scale-95"
-                        >
-                            <div className="relative z-10 text-brand-text group-hover:text-white transition-colors duration-300">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                                </svg>
-                            </div>
-                        </button>
-                    </Magnetic>
-                </div>
-            </div>
-        </div>
-
-        <div className="flex flex-col items-end text-right">
-            <MotionGlassCard 
-              layout 
-              transition={{ layout: { duration: 0.5, type: "spring", stiffness: 100, damping: 20 } }}
-              className="p-10 rounded-[2.5rem] w-full max-w-lg backdrop-blur-3xl bg-white/10 border border-white/20 overflow-hidden"
-              initial={{ opacity: 0, x: 50 }}
-              animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
-            >
-              <AnimatePresence mode="popLayout">
-                <motion.div
-                  key={activeCategory.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.4 }}
-                >
-                  <h2 className="font-display font-bold text-5xl text-brand-pink uppercase mb-6 leading-none drop-shadow-sm text-center">
-                    {activeCategory.title}
-                  </h2>
-                  <div className="w-16 h-1 bg-brand-pink/30 rounded-full mb-6 mx-auto lg:mx-0 lg:ml-auto" />
-                  <p className="font-sans text-brand-text text-lg leading-relaxed font-light text-justify">
-                    {activeCategory.description}
-                  </p>
+                        Explore Collection
+                    </Button>
                 </motion.div>
-              </AnimatePresence>
-            </MotionGlassCard>
+            </AnimatePresence>
         </div>
+
+        {/* RIGHT COLUMN: Scrollable Bento Grid */}
+        <div 
+            id="works-grid-container"
+            className="h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none'] pr-4 pt-48 pb-20 scroll-smooth relative z-10"
+        >
+             <motion.div 
+                className="grid grid-cols-3 gap-6 auto-rows-[220px]"
+                layout
+             >
+                <AnimatePresence mode="popLayout">
+                    {activeCategory.images.map((img, index) => (
+                        <motion.div
+                            key={`${activeCategory.id}-${index}`}
+                            layout
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                            transition={{ 
+                                duration: 0.5, 
+                                delay: index * 0.05,
+                                type: "spring",
+                                stiffness: 200,
+                                damping: 25
+                            }}
+                            className={`
+                                relative group cursor-pointer overflow-hidden rounded-[2.5rem] border border-white/20 shadow-sm
+                                ${getGridSpan(index)}
+                            `}
+                            onClick={() => setSelectedImage(img)}
+                            whileHover={{ scale: 1.02, zIndex: 10 }}
+                        >
+                            <div className="absolute inset-0 bg-zinc-900/5 transition-colors duration-500" />
+                            <motion.div 
+                                className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                style={{ backgroundImage: `url(${img})` }}
+                                layoutId={selectedImage === img ? `image-${img}` : undefined}
+                            />
+                            
+                            {/* Overlay on Hover */}
+                            <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                                <span className="text-white/90 font-display tracking-widest text-sm border border-white/40 px-6 py-2 rounded-full backdrop-blur-md bg-white/10">
+                                    EXPAND
+                                </span>
+                            </div>
+                        </motion.div>
+                    ))}
+                </AnimatePresence>
+             </motion.div>
+        </div>
+
       </div>
 
-      <motion.div 
-        className="absolute bottom-10 left-0 right-0 flex justify-center z-50 pointer-events-auto"
-        initial={{ y: 100, opacity: 0 }}
-        animate={isInView ? { y: 0, opacity: 1 } : { y: 100, opacity: 0 }}
-        transition={{ type: "spring" as const, stiffness: 200, damping: 20, delay: 0.1 }}
-      >
-        <Dock 
-          items={works.categories}
-          activeId={activeCategoryId}
-          onSelect={handleCategoryChange}
-        />
-      </motion.div>
-
-      {/* --- FULLSCREEN PREVIEW MODAL --- */}
+      {/* --- LIGHTBOX MODAL --- */}
       <AnimatePresence>
-          {isModalOpen && (
+          {selectedImage && (
               <motion.div 
-                  className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/90 backdrop-blur-xl p-12 pointer-events-auto"
+                  className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 md:p-12"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={() => setSelectedImage(null)}
               >
-                  <motion.div 
-                    ref={modalContainerRef}
-                    layoutId={`image-${activeCategory.id}-${focusedIndex}`}
-                    className={`
-                      relative 
-                      flex
-                      flex-col
-                      max-w-[90vw] max-h-[85vh] 
-                      shadow-2xl 
-                      overflow-hidden
-                      ${!isGlassDisabled ? 'bg-white/5 backdrop-blur-md border border-white/20 p-2' : ''}
-                    `}
-                    onClick={(e) => e.stopPropagation()} 
+                  <motion.img 
+                    src={selectedImage} 
+                    alt="Full Preview"
+                    layoutId={`image-${selectedImage}`}
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    exit={{ scale: 0.8, opacity: 0 }}
+                    transition={{ type: "spring", stiffness: 200, damping: 25 }}
+                    className="max-w-[95vw] max-h-[90vh] object-contain rounded-xl shadow-2xl"
+                    onClick={(e) => e.stopPropagation()}
+                  />
+                  
+                  <button 
+                    onClick={() => setSelectedImage(null)}
+                    className="absolute top-6 right-6 bg-white/10 hover:bg-brand-pink text-white rounded-full p-3 backdrop-blur-md transition-all hover:rotate-90 cursor-pointer"
                   >
-                      {!isGlassDisabled && (
-                        <>
-                            <div 
-                                ref={modalSheenRef}
-                                className="absolute inset-0 z-20 pointer-events-none mix-blend-overlay opacity-60"
-                                style={{ 
-                                    background: "radial-gradient(circle at 50% 50%, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 100%)" 
-                                }}
-                            />
-                            <div className="absolute inset-0 z-10 pointer-events-none overflow-hidden">
-                                <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-white/10 to-transparent opacity-30" />
-                            </div>
-                        </>
-                      )}
-
-                      <div className="relative overflow-hidden flex items-center justify-center">
-                        <motion.img 
-                          src={currentImage} 
-                          alt="Work Preview"
-                          className={`
-                              block 
-                              w-auto h-auto 
-                              max-w-full 
-                              ${!isGlassDisabled ? 'max-h-[calc(85vh-16px)]' : 'max-h-[85vh]'}
-                              object-contain
-                              bg-zinc-900
-                          `}
-                        />
-                      </div>
-                  </motion.div>
-
-                  <div className="mt-8 flex justify-center" onClick={(e) => e.stopPropagation()}>
-                      <Button
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: 0.2 }}
-                          onClick={() => setIsModalOpen(false)}
-                          variant="primary"
-                          rounded="full"
-                          size="lg"
-                          className="shadow-[0_0_20px_rgba(240,74,117,0.4)] hover:scale-105 hover:bg-white hover:text-brand-pink"
-                      >
-                          Back to Works
-                      </Button>
-                  </div>
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
               </motion.div>
           )}
       </AnimatePresence>
