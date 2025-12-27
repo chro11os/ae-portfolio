@@ -1,6 +1,6 @@
 "use client";
-import React, { useState, useRef, useMemo } from "react";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import React, { useState, useMemo } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "../../ui/Section";
 import { ParallaxText } from "../../ui/ParallaxText";
 import { FadeIn } from "../../ui/FadeIn";
@@ -22,11 +22,14 @@ const getGridSpan = (index: number) => {
     }
 };
 
+const gridItemVariants = {
+    initial: { opacity: 0, scale: 0.9 },
+    animate: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } }
+};
+
 export const WorksDesktop = () => {
   const { works } = portfolioConfig;
-  const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { amount: 0.1, once: true });
-
   const [activeCategoryId, setActiveCategoryId] = useState(works.categories[0].id);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
@@ -42,10 +45,10 @@ export const WorksDesktop = () => {
   };
 
   return (
-    <Section ref={sectionRef} className="lg:h-screen lg:max-h-screen lg:overflow-hidden relative bg-brand-bg flex items-center justify-center">
+    <Section className="lg:h-screen lg:max-h-screen lg:overflow-hidden relative bg-brand-bg flex items-center justify-center">
       
-      {/* TOP NAVIGATION DOCK - Z-60 */}
-      <div className="absolute top-8 left-0 right-0 flex justify-center z-[60]">
+      {/* TOP NAVIGATION DOCK - Z-50 */}
+      <div className="absolute top-8 left-0 right-0 flex justify-center z-50">
           <Dock 
               items={works.categories}
               activeId={activeCategoryId}
@@ -83,18 +86,6 @@ export const WorksDesktop = () => {
                     <p className="font-sans text-brand-text/60 text-lg leading-relaxed font-light text-justify pr-8">
                         {activeCategory.description}
                     </p>
-
-                    <Button 
-                        variant="outline" 
-                        size="lg" 
-                        className="mt-8 border-brand-pink/30 text-brand-pink hover:bg-brand-pink hover:text-white"
-                        onClick={() => {
-                            const gridContainer = document.getElementById("works-grid-container");
-                            gridContainer?.scrollBy({ top: 400, behavior: 'smooth' });
-                        }}
-                    >
-                        Explore Collection
-                    </Button>
                 </motion.div>
             </AnimatePresence>
         </div>
@@ -113,9 +104,10 @@ export const WorksDesktop = () => {
                         <motion.div
                             key={`${activeCategory.id}-${index}`}
                             layout
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                            variants={gridItemVariants}
+                            initial="initial"
+                            animate="animate"
+                            exit="exit"
                             transition={{ 
                                 duration: 0.5, 
                                 delay: index * 0.05,
@@ -124,7 +116,7 @@ export const WorksDesktop = () => {
                                 damping: 25
                             }}
                             className={`
-                                relative group cursor-pointer overflow-hidden rounded-[2.5rem] border border-white/20 shadow-sm
+                                relative group cursor-pointer overflow-hidden rounded-md border border-white/20 shadow-sm
                                 ${getGridSpan(index)}
                             `}
                             onClick={() => setSelectedImage(img)}
@@ -139,7 +131,7 @@ export const WorksDesktop = () => {
                             
                             {/* Overlay on Hover */}
                             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                <span className="text-white/90 font-display tracking-widest text-sm border border-white/40 px-6 py-2 rounded-full backdrop-blur-md bg-white/10">
+                                <span className="text-white/90 font-display tracking-widest text-sm border border-white/40 px-6 py-2 rounded-md backdrop-blur-md bg-white/10">
                                     EXPAND
                                 </span>
                             </div>
@@ -169,7 +161,7 @@ export const WorksDesktop = () => {
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0.8, opacity: 0 }}
                     transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                    className="max-w-[95vw] max-h-[90vh] object-contain rounded-xl shadow-2xl"
+                    className="max-w-[95vw] max-h-[90vh] object-contain rounded-md shadow-2xl"
                     onClick={(e) => e.stopPropagation()}
                   />
                   
