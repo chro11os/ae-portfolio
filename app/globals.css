@@ -29,22 +29,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* --- CURSOR HIDING LOGIC --- */
-@media (pointer: fine) {
-  body {
-    cursor: none;
-  }
-  a, 
-  button, 
-  input, 
-  textarea, 
-  select, 
-  [role="button"],
-  .cursor-pointer {
-    cursor: none !important;
-  }
-}
-
 /* --- TYPOGRAPHY & SELECTION --- */
 ::selection {
   background: var(--color-brand-pink);

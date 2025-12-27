@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Rubik, Oswald } from "next/font/google"; 
 import SmoothScroll from "../components/SmoothScroll"; 
-import { CustomCursor } from "../components/ui/CustomCursor"; 
 import { Navbar } from "../components/ui/Navbar";
 import '../app/globals.css';
 
@@ -29,8 +28,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${rubik.variable} ${oswald.variable} antialiased subpixel-antialiased bg-brand-bg text-brand-text`}>
-        {/* Cursor logic is isolated here */}
-        <CustomCursor /> 
         
         {/* Navbar now handles global navigation without the bottom-left logo */}
         <Navbar />
