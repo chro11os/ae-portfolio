@@ -70,7 +70,7 @@ export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
                 uppercase leading-[0.9] tracking-tighter
                 drop-shadow-sm
             ">
-            {activeItem.title}
+            {(activeItem as any).cardTitle || activeItem.title}
             </h2>
 
             {/* METADATA */}

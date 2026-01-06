@@ -52,7 +52,7 @@ export const portfolioConfig = {
       {
         id: "org-1",
         category: "OFFICER IN",
-        title: "GUIDANCE SOCIETY",
+        title: "GUIDANCE SOCIETY OF MAPUA",
         year: "2022 - 2025",
         role: "Internal VP & Creative Head",
         description: "Oversaw internal operations and affairs of the organization while leading the creation of creative publishing materials."
@@ -60,7 +60,8 @@ export const portfolioConfig = {
       {
         id: "org-2",
         category: "OFFICER IN",
-        title: "FILM, ARTS, & MEDIA", 
+        title: "FILM, ARTS, & MEDIA ENTHUSIAST", 
+        cardTitle: "FAME",
         year: "2022 - 2025",
         role: "President",
         description: "Led the organization’s overall strategic operations, event planning, and student activities."
