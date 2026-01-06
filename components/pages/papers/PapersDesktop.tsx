@@ -16,13 +16,13 @@ const PremiumPaperCard = ({ onClick }: { onClick: () => void }) => {
   return (
     <div className="w-full flex justify-center">
       <Tilt 
-        className="group relative w-full max-w-[450px] aspect-[3/4.2] cursor-none" 
+        className="group relative w-full max-w-[450px] aspect-[3/4.2]" 
         glare={true}
         rotationIntensity={12}
       >
         <div 
           onClick={onClick}
-          className="relative w-full h-full"
+          className="relative w-full h-full cursor-pointer"
         >
             <div className="absolute inset-0 z-0 bg-black/10 blur-2xl translate-y-10 scale-90 group-hover:translate-y-14 group-hover:scale-95 transition-all duration-500" />
             
@@ -101,7 +101,7 @@ export const PapersDesktop = () => {
                   variant="outline"
                   size="sm"
                   rounded="full"
-                  className="flex-1 cursor-none"
+                  className="flex-1"
                 >
                   View Manuscript
                 </Button>
@@ -111,7 +111,7 @@ export const PapersDesktop = () => {
                   variant="ghost" 
                   size="sm"
                   rounded="full"
-                  className="flex-1 cursor-none border border-brand-text/10 text-brand-text/40 hover:border-brand-text hover:text-brand-text hover:bg-transparent"
+                  className="flex-1 border border-brand-text/10 text-brand-text/40 hover:border-brand-text hover:text-brand-text hover:bg-transparent"
                 >
                   Download PDF
                 </Button>

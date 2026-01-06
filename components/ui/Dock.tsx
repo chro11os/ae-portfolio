@@ -11,11 +11,12 @@ interface DockProps {
 export const Dock = ({ items, activeId, onSelect }: DockProps) => {
   return (
     <div className="
-      flex items-center gap-2 p-2 
-      bg-white/10 backdrop-blur-xl 
-      border border-white/20 
-      shadow-[0_20px_40px_-10px_rgba(0,0,0,0.3)]
+      flex items-center gap-1 p-1 
+      bg-white/5 backdrop-blur-md 
+      border border-white/10 
+      shadow-lg
       rounded-full
+      w-max
     ">
       {items.map((item) => {
         const isActive = activeId === item.id;
@@ -23,19 +24,19 @@ export const Dock = ({ items, activeId, onSelect }: DockProps) => {
           <button
             key={item.id}
             onClick={() => onSelect(item.id)}
-            className="relative px-4 py-2 md:px-6 md:py-3 rounded-full text-sm md:text-base font-bold transition-colors duration-300"
+            className="relative px-4 py-1.5 rounded-full text-[10px] md:text-xs font-bold transition-colors duration-300"
           >
-            {/* Active Background Pill */}
+            {/* Active Background - Slim Highlight */}
             {isActive && (
               <motion.div
                 layoutId="dock-active"
-                className="absolute inset-0 bg-brand-pink rounded-full shadow-[0_0_20px_rgba(240,74,117,0.5)]"
+                className="absolute inset-0 bg-white/10 border border-white/5 rounded-full"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}
             
             {/* Label */}
-            <span className={`relative z-10 font-display tracking-wide uppercase ${isActive ? "text-white" : "text-brand-text/60 hover:text-brand-pink"}`}>
+            <span className={`relative z-10 font-display tracking-widest uppercase ${isActive ? "text-brand-pink" : "text-brand-text/50 hover:text-brand-text/80"}`}>
               {item.label}
             </span>
           </button>
