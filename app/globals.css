@@ -12,12 +12,16 @@
 
 /* --- SCROLL LOCK --- */
 /* We disable window scrolling here so the <main> tag can handle the snapping */
-html, body {
+/* html, body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden; 
+} */
+html, body {
+  margin: 0;
+  padding: 0;
 }
 
 /* Base styles */
