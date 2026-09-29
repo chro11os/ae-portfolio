@@ -67,7 +67,7 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
             className={combinedClasses}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
-            {...(props as any)}
+            {...(props as HTMLMotionProps<"a">)}
         >
           {content}
         </motion.a>

@@ -1,58 +1,37 @@
-"use client";
+import { Preloader } from "../components/ui/Preloader";
+import { Responsive } from "../components/ui/Responsive";
 import { Landing } from "../components/pages/Landing";
-import { About } from "../components/pages/about/About";
-import { Education } from "../components/pages/education/Education";
-import { Skills } from "../components/pages/skills/Skills";
-import { Works } from "../components/pages/works/Works";
-import { Papers } from "../components/pages/papers/Papers";
-import { Contact } from "../components/pages/contact/Contact";
-import { Preloader } from "@/components/ui/Preloader";
+import { AboutMobile } from "../components/pages/about/AboutMobile";
+import { AboutDesktop } from "../components/pages/about/AboutDesktop";
+import { EducationMobile } from "../components/pages/education/EducationMobile";
+import { EducationDesktop } from "../components/pages/education/EducationDesktop";
+import { SkillsMobile } from "../components/pages/skills/SkillsMobile";
+import { SkillsDesktop } from "../components/pages/skills/SkillsDesktop";
+import { WorksMobile } from "../components/pages/works/WorksMobile";
+import { WorksDesktop } from "../components/pages/works/WorksDesktop";
+import { PapersMobile } from "../components/pages/papers/PapersMobile";
+import { PapersDesktop } from "../components/pages/papers/PapersDesktop";
+import { ContactMobile } from "../components/pages/contact/ContactMobile";
+import { ContactDesktop } from "../components/pages/contact/ContactDesktop";
+
+// Order here is page order. ids are the Navbar's scroll targets (see navItems in Navbar.tsx).
+const sections = [
+  { id: "landing", content: <Landing /> },
+  { id: "about", content: <Responsive mobile={<AboutMobile />} desktop={<AboutDesktop />} /> },
+  { id: "education", content: <Responsive mobile={<EducationMobile />} desktop={<EducationDesktop />} /> },
+  { id: "skills", content: <Responsive mobile={<SkillsMobile />} desktop={<SkillsDesktop />} /> },
+  { id: "works", content: <Responsive mobile={<WorksMobile />} desktop={<WorksDesktop />} /> },
+  { id: "papers", content: <Responsive mobile={<PapersMobile />} desktop={<PapersDesktop />} /> },
+  { id: "contact", content: <Responsive mobile={<ContactMobile />} desktop={<ContactDesktop />} /> },
+];
 
 export default function Home() {
   return (
-    <main className="
-      w-full 
-      min-h-screen
-      w-full 
-      min-h-screen
-      relative
-    ">
+    <>
       <Preloader />
-
-      {/* FIX: We wrap each component in a section with:
-        1. id="..." -> So the Navbar knows where to scroll.
-        2. snap-start -> So the scrolling locks here.
-        3. w-full -> Ensures it takes full width.
-      */}
-
-      <section id="landing" className="w-full">
-        <Landing />
-      </section>
-
-      <section id="about" className="w-full">
-        <About />
-      </section>
-
-      <section id="education" className="w-full">
-        <Education />
-      </section>
-
-      <section id="skills" className="w-full">
-        <Skills />
-      </section>
-
-      <section id="works" className="w-full">
-        <Works />
-      </section>
-
-      <section id="papers" className="w-full">
-        <Papers />
-      </section>
-
-      <section id="contact" className="w-full">
-        <Contact />
-      </section>
-
-    </main>
+      {sections.map(({ id, content }) => (
+        <div key={id} id={id}>{content}</div>
+      ))}
+    </>
   );
 }

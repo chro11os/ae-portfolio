@@ -1,7 +1,5 @@
 "use client";
-import React, { useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import React from "react";
 import { portfolioConfig } from "../../../config/portfolio";
 import { FadeIn } from "../../ui/FadeIn"; // Importing your persistent component
 
@@ -11,35 +9,15 @@ interface EducationCardProps {
 }
 
 export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  // INTERNAL ANIMATION: Switch Content (Blur/Scale effect)
-  useGSAP(() => {
-    if (!cardRef.current) return;
-
-    // Reset and animate
-    gsap.killTweensOf([cardRef.current, ".bg-number"]);
-
-    gsap.fromTo(cardRef.current,
-      { opacity: 0, y: 10, scale: 0.98, filter: "blur(5px)" },
-      { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: 0.4, ease: "power3.out" }
-    );
-
-    // Parallax number effect
-    gsap.fromTo(".bg-number",
-      { y: 30, opacity: 0 },
-      { y: 0, opacity: 0.04, duration: 0.6, ease: "power2.out", delay: 0.1 }
-    );
-
-  }, { dependencies: [activeItem], scope: cardRef });
-
   return (
     <div className="col-span-8 h-full">
       {/* PERSISTENT SCROLL ENTRY: The whole card block fades in when scrolled to */}
       <FadeIn direction="up" delay={0.2} duration={0.8} className="h-full">
+        {/* key remounts the card on switch, replaying animate-card-in / animate-number-in */}
         <div
-            ref={cardRef}
+            key={activeItem.id}
             className="
+                animate-card-in
                 relative 
                 bg-gradient-to-br from-gray-50 to-gray-100
                 p-12 rounded-[2.5rem] 
@@ -70,7 +48,7 @@ export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
                 uppercase leading-[0.9] tracking-tighter
                 drop-shadow-sm
             ">
-            {(activeItem as any).cardTitle || activeItem.title}
+            {activeItem.cardTitle || activeItem.title}
             </h2>
 
             {/* METADATA */}
@@ -86,7 +64,7 @@ export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
             </p>
 
             {/* BACKGROUND NUMBER */}
-            <div className="bg-number absolute right-8 bottom-[-3rem] opacity-[0.04] pointer-events-none select-none overflow-hidden">
+            <div className="animate-number-in absolute right-8 bottom-[-3rem] opacity-[0.04] pointer-events-none select-none overflow-hidden">
             <span className="font-display font-bold text-[22rem] leading-none text-black">
                 {index + 1}
             </span>

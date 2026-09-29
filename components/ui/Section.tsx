@@ -17,13 +17,10 @@ export const Section = React.forwardRef<HTMLElement, SectionProps>(
           relative 
           py-20
           
-          /* DESKTOP (lg): Strict Fixed Height & Snap (Your Original Design) */
+          /* DESKTOP (lg): one fixed screen per section */
           lg:h-screen 
           lg:py-0
           lg:overflow-hidden 
-          lg:snap-start 
-          lg:snap-always 
-          lg:[scroll-snap-stop:always] 
           
           ${className}
         `}

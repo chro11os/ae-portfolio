@@ -2,13 +2,11 @@ export const portfolioConfig = {
   personal: {
     name: "Jaon Ae-dam Gatchalian",
     role: "Motion, Graphics, 3D Designer",
-    shortName: "AE-DAM",
     logo: "MAPUA",
   },
   landing: {
     heading: "AE-DAM",
     subHeading: "An artist, a leader, \na researcher, \na media practitioner",
-    decoration: "XX",
   },
   about: {
     heading: "WHO AM I?",
@@ -17,8 +15,6 @@ export const portfolioConfig = {
     bioP3: "A key lesson I will always carry with me is the Design Thinking process. It taught me to approach design with empathy, intention, and problem-solving at its core. This mindset reshaped how I view creativity – not just as making something visually appealing, but as designing with purpose, clarity, and impact.",
     quote: "“We spend a lot time designing the bridge, but not enough time thinking about the people who are crossing it.”",
     quoteAuthor: "– Dr. Prabhjot Singh, Director of Systems Design at the Earth Institute",
-    cardName: "Jaon Ae-dam Gatchalian",
-    cardRole: "An artist, a leader, a researcher, a media practitioner",
   },
   education: {
     heading: "EDUCATIONAL",
@@ -249,12 +245,7 @@ export const portfolioConfig = {
         date: "2026",
         conference: "ICAITE - JAPAN",
         abstract: "Utilizing a design thinking framework and empathy interviews with five educators from Philippine universities, the research identifies key themes regarding pedagogical strategies, academic integrity, and the enduring necessity of human-centric critical thinking. The findings offer practical implications for curriculum development and policy formation to ensure students leverage AI as a collaborative tool rather than a substitute for creativity.",
-        fileUrl: "/downloadable-documents/JO142_Revised-Manuscript.pdf",
-        previewPages: [
-            "/assets/papers/manuscript-p1.jpg", // Ensure you have these preview images
-            "/assets/papers/manuscript-p2.jpg",
-            "/assets/papers/manuscript-p3.jpg"
-        ]
+        fileUrl: "/downloadable-documents/JO142_Revised-Manuscript.pdf"
       }
     ]
   },

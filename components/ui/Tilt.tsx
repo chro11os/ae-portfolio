@@ -8,7 +8,6 @@ interface TiltProps {
   rotationIntensity?: number; // degrees, default 12
   perspective?: number; // default 1000
   glare?: boolean;
-  glareOpacity?: number; // max opacity
 }
 
 export const Tilt = ({ 
@@ -17,7 +16,6 @@ export const Tilt = ({
   rotationIntensity = 12, 
   perspective = 1000,
   glare = false,
-  glareOpacity = 0.4
 }: TiltProps) => {
   const ref = useRef<HTMLDivElement>(null);
 

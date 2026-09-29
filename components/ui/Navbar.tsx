@@ -1,7 +1,5 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import React, { useRef } from "react";
 import { GlassCard } from "./GlassCard";
 
 // Navigation Items Configuration
@@ -16,111 +14,34 @@ const navItems = [
 ];
 
 export const Navbar = () => {
-  const [isLanding, setIsLanding] = useState(true);
-
-  // Typed Refs
-  const containerRef = useRef<HTMLDivElement>(null);
   const buttonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const navWrapperRef = useRef<HTMLDivElement>(null);
 
-  // --- 1. GSAP POSITION ANIMATION ---
-  useGSAP(() => {
-    const wrapper = navWrapperRef.current;
-    if (!wrapper) return;
-
-    // Always keep it at Top Left (removing the Bottom-Center landing state)
-    gsap.to(wrapper, {
-      top: "2rem",
-      left: "2rem",
-      xPercent: 0,
-      duration: 0.6,
-      ease: "power3.out"
+  // --- DOCK MAGNIFICATION: scale each button by horizontal distance to the cursor ---
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const maxDistance = 150;
+    buttonRefs.current.forEach((btn) => {
+      if (!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const distance = Math.abs(e.clientX - (rect.left + rect.width / 2));
+      const scale = distance < maxDistance ? 1 + Math.sin((1 - distance / maxDistance) * Math.PI / 2) * 0.6 : 1;
+      btn.style.transform = `scale(${scale})`;
     });
-  }, [isLanding]);
+  };
 
-  // --- 2. ROBUST SCROLL DETECTION ---
-  useEffect(() => {
-    // FIX: Added type 'Event' and cast target to 'HTMLElement'
-    const handleScroll = (e: Event) => {
-      const target = e.target as HTMLElement;
+  const handleMouseLeave = () => {
+    buttonRefs.current.forEach((btn) => {
+      if (btn) btn.style.transform = "";
+    });
+  };
 
-      // Only care about the main scroller
-      if (target.tagName === 'MAIN') {
-        const threshold = window.innerHeight * 0.3;
-        const isHome = target.scrollTop < threshold;
-        setIsLanding((prev) => (prev !== isHome ? isHome : prev));
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll, true);
-    return () => window.removeEventListener("scroll", handleScroll, true);
-  }, []);
-
-  // --- 3. DOCK MAGNIFICATION ---
-  useGSAP(() => {
-    if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) return;
-
-    const buttons = buttonRefs.current;
-    const container = containerRef.current;
-    if (!container || buttons.length === 0) return;
-
-    // FIX: Added type 'MouseEvent'
-    const handleMouseMove = (e: MouseEvent) => {
-      const mouseX = e.clientX;
-      buttons.forEach((btn) => {
-        if (!btn) return;
-        const rect = btn.getBoundingClientRect();
-        const btnCenterX = rect.left + rect.width / 2;
-        const distance = Math.abs(mouseX - btnCenterX);
-        const maxDistance = 150;
-        let scale = 1;
-        if (distance < maxDistance) {
-          const val = 1 - distance / maxDistance;
-          scale = 1 + (Math.sin(val * Math.PI / 2)) * 0.6;
-        }
-        gsap.to(btn, { scale: scale, duration: 0.1, overwrite: "auto" });
-      });
-    };
-
-    const handleMouseLeave = () => {
-      buttons.forEach((btn) => {
-        if (btn) gsap.to(btn, { scale: 1, duration: 0.3, ease: "power2.out", overwrite: "auto" });
-      });
-    };
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mouseleave", handleMouseLeave);
-    return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mouseleave", handleMouseLeave);
-    };
-  }, { scope: containerRef });
-
-  // --- 4. SCROLL HELPER ---
+  // --- SCROLL HELPER ---
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    const mainContainer = document.querySelector('main');
-
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    } else if (mainContainer) {
-      const index = navItems.findIndex(item => item.id === id);
-      if (index !== -1) {
-        mainContainer.scrollTo({ top: index * window.innerHeight, behavior: "smooth" });
-      }
-    }
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
-    <div
-      ref={navWrapperRef}
-      className="
-        hidden md:block
-        fixed z-[100]
-        /* Initial State: Top Left */
-        top-8 left-8
-      "
-    >
-      <div ref={containerRef}>
+    <div className="hidden md:block fixed z-[100] top-8 left-8">
+      <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
         <GlassCard className="
           flex items-end gap-2 p-3 rounded-2xl
           bg-white/10 backdrop-blur-2xl border border-white/20
@@ -132,7 +53,6 @@ export const Navbar = () => {
               ref={(el) => { buttonRefs.current[index] = el }}
               item={item}
               onClick={() => scrollToSection(item.id)}
-              isLanding={isLanding}
             />
           ))}
         </GlassCard>
@@ -145,10 +65,9 @@ export const Navbar = () => {
 interface NavButtonProps {
   item: { id: string; label: string; icon: React.ReactNode };
   onClick: () => void;
-  isLanding: boolean;
 }
 
-const NavButton = React.forwardRef<HTMLButtonElement, NavButtonProps>(({ item, onClick, isLanding }, ref) => {
+const NavButton = React.forwardRef<HTMLButtonElement, NavButtonProps>(({ item, onClick }, ref) => {
   return (
     <button
       ref={ref}
@@ -158,7 +77,7 @@ const NavButton = React.forwardRef<HTMLButtonElement, NavButtonProps>(({ item, o
                 w-10 h-10 md:w-12 md:h-12 
                 rounded-2xl 
                 flex items-center justify-center 
-                transition-colors duration-300
+                transition-[background-color,transform] duration-150 ease-out
                 hover:bg-white/20
                 origin-bottom 
             "

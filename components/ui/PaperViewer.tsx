@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
 import { AnimatePresence, motion } from "framer-motion";
 
 interface Paper {
@@ -30,15 +28,6 @@ export const PaperViewer = ({ isOpen, onClose, paper }: PaperViewerProps) => {
     };
   }, [isOpen, onClose]);
 
-  useGSAP(() => {
-    if (isOpen) {
-      gsap.fromTo(".viewer-content", 
-        { scale: 0.9, opacity: 0 }, 
-        { scale: 1, opacity: 1, duration: 0.5, ease: "expo.out" }
-      );
-    }
-  }, [isOpen]);
-
   if (!isOpen) return null;
 
   return (
@@ -51,7 +40,7 @@ export const PaperViewer = ({ isOpen, onClose, paper }: PaperViewerProps) => {
         onClick={onClose}
       >
         <div 
-          className="viewer-content relative w-full max-w-6xl h-[90vh] flex flex-col items-center bg-zinc-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl"
+          className="viewer-content animate-viewer-in relative w-full max-w-6xl h-[90vh] flex flex-col items-center bg-zinc-900 rounded-3xl overflow-hidden border border-white/10 shadow-2xl"
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header UI */}

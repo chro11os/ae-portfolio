@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { useAnimationFrame, useMotionValue, MotionValue } from "framer-motion";
+import { useAnimationFrame, useMotionValue } from "framer-motion";
 
 const lerp = (start: number, end: number, factor: number) => {
   return start + (end - start) * factor;
@@ -7,7 +7,6 @@ const lerp = (start: number, end: number, factor: number) => {
 
 interface UseInfiniteLoopOptions {
   itemCount: number;
-  itemWidth?: number; // Optional, can be calculated automatically if needed, but easier if driven by parent
   speedTarget?: number;
 }
 

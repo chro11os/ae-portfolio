@@ -1,24 +1,8 @@
 import { useState } from "react";
 
-interface Social {
-  label: string;
-  url: string;
-}
-
-interface ContactConfig {
-  email: string;
-  socials: Social[];
-  [key: string]: any;
-}
-
-export const useContactForm = (contactConfig: ContactConfig) => {
+// Contact form state; submitting opens the visitor's mail client via mailto.
+export const useContactForm = (email: string) => {
   const [formData, setFormData] = useState({ name: "", subject: "", message: "" });
-  
-  const filteredSocials = contactConfig.socials.filter(
-    (social: Social) => !["behance", "github"].includes(social.label.toLowerCase())
-  );
-  
-  // ... rest same ...
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -27,12 +11,9 @@ export const useContactForm = (contactConfig: ContactConfig) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const { name, subject, message } = formData;
-    const mailtoLink = `mailto:${contactConfig.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`Name: ${name}
-
-Message:
-${message}`)}`;
-    window.location.href = mailtoLink;
+    const body = `Name: ${name}\n\nMessage:\n${message}`;
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   };
 
-  return { formData, handleChange, handleSubmit, filteredSocials };
+  return { formData, handleChange, handleSubmit };
 };

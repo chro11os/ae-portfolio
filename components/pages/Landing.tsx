@@ -11,7 +11,7 @@ export const Landing = () => {
   const { landing, personal } = portfolioConfig;
 
   return (
-    <Section id="landing" className="relative flex flex-col justify-center overflow-hidden">
+    <Section className="relative flex flex-col justify-center overflow-hidden">
       {/* LOGO */}
       <FadeIn delay={0.5} className="absolute top-6 right-6 md:top-12 md:right-12 z-50">
         <SectionHeading className="text-lg md:text-xl">{personal.logo}</SectionHeading>

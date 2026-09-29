@@ -1,4 +1,5 @@
 import { FadeIn } from "./FadeIn";
+import { portfolioConfig } from "../../config/portfolio";
 
 export const Signature = () => (
   <FadeIn 
@@ -13,7 +14,7 @@ export const Signature = () => (
     {/* LINE 2: Forced into a single line regardless of screen size */}
     <div className="whitespace-nowrap">
       <h2 className="font-display font-bold text-brand-pink text-[min(4.5vw,1.2rem)] md:text-xl lg:text-2xl uppercase leading-none tracking-tighter">
-        Jaon Ae-dam Gatchalian
+        {portfolioConfig.personal.name}
       </h2>
     </div>
   </FadeIn>

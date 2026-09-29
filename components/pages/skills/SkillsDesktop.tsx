@@ -83,7 +83,14 @@ export const SkillsDesktop = () => {
 
 // --- SUB-COMPONENTS ---
 
-const SkillCard = ({ skill, index, onHover, isHovered }: any) => (
+interface SkillCardProps {
+  skill: typeof portfolioConfig.skills.items[number];
+  index: number;
+  onHover: (skill: typeof portfolioConfig.skills.items[number]) => void;
+  isHovered: boolean;
+}
+
+const SkillCard = ({ skill, index, onHover, isHovered }: SkillCardProps) => (
   <motion.div 
       className="relative group shrink-0 z-10"
       onMouseEnter={() => onHover(skill)}
@@ -116,7 +123,7 @@ const SkillCard = ({ skill, index, onHover, isHovered }: any) => (
   </motion.div>
 );
 
-const SkillInfoDisplay = ({ activeSkill }: { activeSkill: any }) => (
+const SkillInfoDisplay = ({ activeSkill }: { activeSkill: typeof portfolioConfig.skills.items[number] | null }) => (
   <div className="w-full max-w-4xl px-6 relative z-20">
     <MotionGlassCard
       initial={{ opacity: 0, y: 20 }}

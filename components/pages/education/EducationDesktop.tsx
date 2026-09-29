@@ -1,7 +1,5 @@
 "use client";
-import React, { useState, useMemo, useRef } from "react";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
+import React, { useState, useMemo } from "react";
 import { Section } from "../../ui/Section";
 import { FadeIn } from "../../ui/FadeIn";
 import { portfolioConfig } from "../../../config/portfolio";
@@ -19,17 +17,6 @@ export const EducationDesktop = () => {
 
   const activeIndex = education.items.findIndex(i => i.id === selectedId);
 
-  // --- CONTINUOUS SHEEN LOOP (GSAP) ---
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  useGSAP(() => {
-    gsap.to(titleRef.current, {
-      backgroundPosition: "-200% 0",
-      duration: 4,
-      repeat: -1,
-      ease: "linear",
-    });
-  }, { scope: titleRef });
-
   return (
     // STRICT DESKTOP RULES: h-screen, overflow-hidden
     <Section id="education-desktop" className="hidden lg:flex flex-col justify-start px-12 xl:px-24 pt-32 overflow-hidden relative">
@@ -40,7 +27,6 @@ export const EducationDesktop = () => {
         {/* TITLE STAYS IN PLACE */}
         <FadeIn direction="down" duration={1}>
           <h1
-            ref={titleRef}
             className="
                     font-display font-bold 
                     text-[clamp(4rem,10vw,10rem)] leading-[0.8] 
@@ -49,6 +35,7 @@ export const EducationDesktop = () => {
                     bg-[linear-gradient(110deg,#F04A75_20%,#ffc4d6_40%,#F04A75_60%)]
                     bg-[length:200%_100%]
                     drop-shadow-sm
+                    animate-sheen
                     will-change-[background-position]
                 "
           >

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Section } from "../../ui/Section";
 import { BigDisplay, BodyText } from "../../ui/Typography";
 import { FadeIn } from "../../ui/FadeIn";
@@ -10,7 +10,7 @@ import { useContactForm } from "../../../hooks/useContactForm";
 
 export const ContactMobile = () => {
   const { contact } = portfolioConfig;
-  const { formData, handleChange, handleSubmit, filteredSocials } = useContactForm(contact);
+  const { formData, handleChange, handleSubmit } = useContactForm(contact.email);
 
   return (
     <Section className="flex flex-col items-center justify-between relative overflow-hidden min-h-[100dvh] w-full px-5 py-8">
@@ -78,7 +78,7 @@ export const ContactMobile = () => {
                     </Button>
 
                     <Button
-                        href="/downloadable-documents/Gatchalian_Resume.pdf"
+                        href={contact.resumeUrl}
                         download="Gatchalian_Resume.pdf"
                         variant="secondary"
                         size="md"
@@ -92,7 +92,7 @@ export const ContactMobile = () => {
 
             {/* --- SOCIAL LINKS --- */}
             <div className="mt-8 flex justify-center gap-8">
-                {filteredSocials.map((social, index) => (
+                {contact.socials.map((social, index) => (
                     <FadeIn key={social.label} delay={0.5 + (index * 0.1)} direction="up">
                         <a href={social.url} target="_blank" rel="noopener noreferrer" 
                            className="text-brand-text/40 font-display font-bold text-[10px] uppercase tracking-[0.3em] active:text-brand-pink transition-all p-2 block">

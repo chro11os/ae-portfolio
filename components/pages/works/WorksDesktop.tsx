@@ -1,12 +1,12 @@
 "use client";
 import React, { useState, useMemo } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "../../ui/Section";
 import { ParallaxText } from "../../ui/ParallaxText";
 import { FadeIn } from "../../ui/FadeIn";
 import { Dock } from "../../ui/Dock";
 import { portfolioConfig } from "../../../config/portfolio";
-import { Button } from "../../ui/Button";
 
 // Helper function to generate grid spans for visual variety
 const getGridSpan = (index: number) => {
@@ -59,7 +59,7 @@ export const WorksDesktop = () => {
             {/* BACKGROUND TITLE - Z-0 */}
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 select-none">
                 <FadeIn delay={0.2} duration={1.5}>
-                    <ParallaxText speed={0.5} className="text-[clamp(12rem,25vw,25rem)] leading-none text-brand-pink/[0.02] select-none tracking-tighter">
+                    <ParallaxText className="text-[clamp(12rem,25vw,25rem)] leading-none text-brand-pink/[0.02] select-none tracking-tighter">
                         {works.heading}
                     </ParallaxText>
                 </FadeIn>
@@ -125,10 +125,17 @@ export const WorksDesktop = () => {
                                 >
                                     <div className="absolute inset-0 bg-zinc-900/5 transition-colors duration-500" />
                                     <motion.div
-                                        className="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                                        style={{ backgroundImage: `url(${img})` }}
+                                        className="relative w-full h-full"
                                         layoutId={selectedImage === img ? `image-${img}` : undefined}
-                                    />
+                                    >
+                                        <Image
+                                            src={img}
+                                            alt={`${activeCategory.title} ${index + 1}`}
+                                            fill
+                                            className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                            sizes="(max-width: 1400px) 50vw, 700px"
+                                        />
+                                    </motion.div>
 
                                     {/* Overlay on Hover */}
                                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -154,17 +161,22 @@ export const WorksDesktop = () => {
                         exit={{ opacity: 0 }}
                         onClick={() => setSelectedImage(null)}
                     >
-                        <motion.img
-                            src={selectedImage}
-                            alt="Full Preview"
+                        <motion.div
                             layoutId={`image-${selectedImage}`}
                             initial={{ scale: 0.8, opacity: 0 }}
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.8, opacity: 0 }}
                             transition={{ type: "spring", stiffness: 200, damping: 25 }}
-                            className="max-w-[95vw] max-h-[90vh] object-contain rounded-md shadow-2xl"
-                            onClick={(e) => e.stopPropagation()}
-                        />
+                            className="relative w-full h-full pointer-events-none"
+                        >
+                            <Image
+                                src={selectedImage}
+                                alt="Full Preview"
+                                fill
+                                className="object-contain"
+                                sizes="95vw"
+                            />
+                        </motion.div>
 
                         <button
                             onClick={() => setSelectedImage(null)}

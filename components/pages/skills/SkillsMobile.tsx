@@ -85,7 +85,14 @@ export const SkillsMobile = () => {
 
 // --- SUB-COMPONENT ---
 
-const MobileSkillIcon = ({ skill, index, isActive, onClick }: any) => (
+interface MobileSkillIconProps {
+    skill: typeof portfolioConfig.skills.items[number];
+    index: number;
+    isActive: boolean;
+    onClick: () => void;
+}
+
+const MobileSkillIcon = ({ skill, index, isActive, onClick }: MobileSkillIconProps) => (
     <motion.button
         onClick={onClick}
         initial={{ opacity: 0, scale: 0.8 }}

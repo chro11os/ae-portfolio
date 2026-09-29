@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import { Section } from "../../ui/Section";
 import { BigDisplay, BodyText } from "../../ui/Typography";
 import { FadeIn } from "../../ui/FadeIn";
@@ -11,7 +11,7 @@ import { useContactForm } from "../../../hooks/useContactForm";
 
 export const ContactDesktop = () => {
   const { contact } = portfolioConfig;
-  const { formData, handleChange, handleSubmit, filteredSocials } = useContactForm(contact);
+  const { formData, handleChange, handleSubmit } = useContactForm(contact.email);
 
   return (
     <Section className="flex flex-col items-center justify-between relative overflow-hidden w-full px-6 py-12 md:py-20">
@@ -83,7 +83,7 @@ export const ContactDesktop = () => {
 
                     <Magnetic strength={0.15} className="w-full">
                         <Button
-                            href="/downloadable-documents/Gatchalian_Resume.pdf"
+                            href={contact.resumeUrl}
                             download="Gatchalian_Resume.pdf"
                             variant="secondary"
                             size="lg"
@@ -98,7 +98,7 @@ export const ContactDesktop = () => {
 
             {/* --- SOCIAL LINKS: Improved top margin --- */}
             <div className="mt-24 flex justify-center gap-12">
-                {filteredSocials.map((social, index) => (
+                {contact.socials.map((social, index) => (
                     <FadeIn key={social.label} delay={0.5 + (index * 0.1)} direction="up">
                         <Magnetic strength={0.3}>
                             <a href={social.url} target="_blank" rel="noopener noreferrer" 
