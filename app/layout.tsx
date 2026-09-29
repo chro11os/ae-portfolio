@@ -26,8 +26,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${rubik.variable} ${oswald.variable} antialiased subpixel-antialiased bg-brand-bg text-brand-text`}>
+    // Font variables must live on <html>: globals.css @theme resolves --font-sans/--font-display on :root
+    <html lang="en" className={`${rubik.variable} ${oswald.variable}`}>
+      <body className="antialiased subpixel-antialiased bg-brand-bg text-brand-text">
         
         {/* Navbar now handles global navigation without the bottom-left logo */}
         <Navbar />

@@ -36,10 +36,10 @@ Format: `- [ ] **ID** what — where. why.` Tick with `[x]` and add the commit h
 
 ## Visual bugs (from headless screenshots, 2026-09-29)
 
-- [ ] **V1** Fonts never load: `app/layout.tsx` puts `rubik.variable`/`oswald.variable` on `<body>`, but `@theme` resolves `--font-sans: var(--font-rubik)` on `:root`, where it's undefined → everything falls back to `ui-sans-serif` (SF on Mac). Fix = move the variable classes to `<html>`. **Visual decision**: switching to real Oswald (condensed) restyles every heading, and the current layouts were tuned against the system font. Either fix it and re-tune, or drop the two `next/font` loads and keep the system look on purpose.
+- [x] **V1** Fonts: moved `rubik.variable`/`oswald.variable` to `<html>`; Rubik + Oswald now actually render. Re-tuned desktop Contact spacing (it overflowed and clipped "REACH OUT!" with the taller Oswald). — 2026-09-29
 - [ ] **V2** Fixed Navbar (top-left, z-100) overlaps content on desktop: covers the "EDUCATION" title, the "REACH OUT!" heading, and hides the left end of the Works category dock ("ACTER DESIGN") at 1024 and 1440 widths.
-- [ ] **V3** Phone overlaps: Landing tagline + signature sit on top of the portrait; Skills icons cover the "SKILLS" heading; the Works category `<select>` covers the "WORKS" heading.
-- [ ] **V4** Desktop Contact: "REACH OUT!" touches the top edge; social links crowd the designer/developer credits.
+- [ ] **V3** Phone overlaps: Landing tagline + signature sit on top of the portrait; Skills icons cover the "SKILLS" heading; the Works category `<select>` covers the "WORKS" heading; ParallaxText pushes "PAPERS" down over the "Published Paper" label and description; "EDUCATIONAL" / "BACKGROUND" lines touch (`leading-[0.8]`).
+- [x] **V4** Desktop Contact clipping + crowded credits — fixed with V1 (content was 807px in a 785px box). At 1024 wide the Navbar still covers the heading → V2.
 - [ ] **V5** Desktop Education at 900px tall: the tree's last item sits at the bottom edge (A6 confirmed at 1440×900; at 1024×768 it's cut off).
 - [ ] **V6** Section headings use 6 different treatments (embossed card, gradient sheen, ghost word, 2%-opacity ghost word that's invisible on Works, solid pink). Pick one or two.
 

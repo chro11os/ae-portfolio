@@ -14,13 +14,13 @@ export const ContactDesktop = () => {
   const { formData, handleChange, handleSubmit } = useContactForm(contact.email);
 
   return (
-    <Section className="flex flex-col items-center justify-between relative overflow-hidden w-full px-6 py-12 md:py-20">
+    <Section className="flex flex-col items-center justify-between relative overflow-hidden w-full px-6">
       
       {/* 1. TOP & MIDDLE CONTENT WRAPPER */}
       <div className="z-10 w-full max-w-4xl flex flex-col items-center justify-center flex-grow">
         
         {/* --- TITLE: Tightened spacing --- */}
-        <div className="text-center space-y-4 mb-12">
+        <div className="text-center space-y-4 mb-8">
             <FadeIn direction="down" delay={0.1}>
                 <BigDisplay className="text-[clamp(3.5rem,8vw,8rem)] leading-[0.8] text-brand-pink drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]">
                     {contact.heading}
@@ -97,7 +97,7 @@ export const ContactDesktop = () => {
             </form>
 
             {/* --- SOCIAL LINKS: Improved top margin --- */}
-            <div className="mt-24 flex justify-center gap-12">
+            <div className="mt-12 flex justify-center gap-12">
                 {contact.socials.map((social, index) => (
                     <FadeIn key={social.label} delay={0.5 + (index * 0.1)} direction="up">
                         <Magnetic strength={0.3}>
@@ -113,7 +113,7 @@ export const ContactDesktop = () => {
       </div>
 
       {/* --- FOOTER: Credits & Copyright --- */}
-      <div className="w-full flex flex-col items-center gap-10 pb-4">
+      <div className="w-full flex flex-col items-center gap-6 pb-4">
           <FadeIn delay={0.7} className="flex flex-row justify-center items-center gap-16">
               <div className="text-right">
                   <span className="block text-[9px] text-brand-text/30 uppercase tracking-[0.4em] mb-1.5">Web Designer</span>

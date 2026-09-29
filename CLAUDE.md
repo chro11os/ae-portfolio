@@ -54,5 +54,6 @@ public/works-assets/   gallery images, referenced by path from config
 - Images in `public/` are huge (up to 28 MB PNGs, 236 MB total). Always render through `next/image`; a raw `<img>` or CSS `background-image` ships the original file.
 - Photography filenames mix `.JPG` and `.jpg` — paths are case-sensitive on Linux/Vercel.
 - `data-lenis-prevent` is required on any inner scroll container (see Works grid) or Lenis hijacks the wheel.
-- Fonts: Rubik/Oswald variables are set on `<body>` but Tailwind's `@theme` resolves `--font-sans`/`--font-display` on `:root`, so **the site currently renders in the system font, not Rubik/Oswald**. See TASKS.md V1 before touching typography.
+- Font variable classes (`rubik.variable`, `oswald.variable`) must stay on `<html>`, not `<body>` — `@theme` resolves `--font-sans`/`--font-display` on `:root`. On `<body>` the site silently falls back to the system font (it did until 2026-09-29).
+- Desktop sections are exactly one screen tall with `overflow-hidden`, and `Section`'s `lg:py-0` overrides any `py-*` you pass. If content is taller than the viewport it gets clipped top *and* bottom (inner wrappers are `justify-center`) — check at 1024×768.
 - The Navbar is `fixed` top-left at z-100 and overlaps section content on desktop (TASKS.md V2).
