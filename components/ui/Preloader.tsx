@@ -14,19 +14,19 @@ export const Preloader = () => {
     const interval = setInterval(() => {
       setCounter((prev) => {
         if (prev < 100) {
-          return prev + 1;
+          return Math.min(100, prev + 3);
         } else {
           clearInterval(interval);
           return 100;
         }
       });
-    }, 20); // Adjust speed here (lower = faster)
+    }, 20); // 0 → 100 in ~0.7 s
 
     // 3. Cleanup & Unlock
     const timer = setTimeout(() => {
       setIsLoading(false);
       document.body.style.overflow = ""; // Unlock scroll
-    }, 2500); // Total load time (matches counter speed approx)
+    }, 900); // Just after the counter hits 100
 
     return () => {
       clearTimeout(timer);
@@ -43,7 +43,7 @@ export const Preloader = () => {
           initial={{ y: 0 }}
           exit={{ 
             y: "-100%", 
-            transition: { duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 0.2 } 
+            transition: { duration: 0.6, ease: [0.76, 0, 0.24, 1] }
           }}
         >
           {/* CONTENT CONTAINER */}

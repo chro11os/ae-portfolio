@@ -85,7 +85,7 @@ export const EducationMobile = () => {
                                 className="overflow-hidden"
                             >
                                 <div className="pt-4 pb-2">
-                                    <p className="font-sans text-brand-text/80 text-sm leading-relaxed text-justify bg-white/40 p-4 rounded-xl border border-white/50 backdrop-blur-sm">
+                                    <p className="font-sans text-brand-text/80 text-sm leading-relaxed text-justify surface-inset p-4 rounded-xl">
                                         {item.description}
                                     </p>
                                 </div>

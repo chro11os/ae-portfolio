@@ -41,7 +41,7 @@ export const WorksMobile = () => {
                     <select
                         value={activeCategoryId}
                         onChange={handleCategoryChange}
-                        className="w-full appearance-none bg-white/20 backdrop-blur-md border border-white/30 text-brand-text py-3 px-6 pr-10 rounded-xl font-display font-bold uppercase tracking-widest text-xs focus:outline-none focus:border-brand-pink/50 transition-all"
+                        className="w-full appearance-none surface-raised border border-transparent text-brand-text py-3 px-6 pr-10 rounded-xl font-display font-bold uppercase tracking-widest text-xs focus:outline-none focus:border-brand-pink/50 transition-all"
                     >
                         {works.categories.map(cat => (
                             <option key={cat.id} value={cat.id} className="text-black bg-white">

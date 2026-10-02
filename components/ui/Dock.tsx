@@ -12,9 +12,7 @@ export const Dock = ({ items, activeId, onSelect }: DockProps) => {
   return (
     <div className="
       flex items-center gap-1 p-1 
-      bg-white/5 backdrop-blur-md 
-      border border-white/10 
-      shadow-lg
+      surface-raised
       rounded-full
       w-max
     ">
@@ -30,7 +28,7 @@ export const Dock = ({ items, activeId, onSelect }: DockProps) => {
             {isActive && (
               <motion.div
                 layoutId="dock-active"
-                className="absolute inset-0 bg-white/10 border border-white/5 rounded-full"
+                className="absolute inset-0 surface-inset rounded-full"
                 transition={{ type: "spring", stiffness: 300, damping: 30 }}
               />
             )}

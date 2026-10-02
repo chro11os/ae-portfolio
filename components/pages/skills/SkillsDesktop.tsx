@@ -1,39 +1,15 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "../../ui/Section";
 import { BigDisplay } from "../../ui/Typography";
 import { FadeIn } from "../../ui/FadeIn";
-import { GlassCard } from "../../ui/GlassCard"; 
 import { portfolioConfig } from "../../../config/portfolio";
-import { useInfiniteLoop } from "../../../hooks/useInfiniteLoop";
-
-const MotionGlassCard = motion(GlassCard);
 
 export const SkillsDesktop = () => {
   const { skills } = portfolioConfig;
-  
-  // CONFIGURATION
-  const REPEAT_COUNT = 6;
-  const repeatedSkills = Array(REPEAT_COUNT).fill(skills.items).flat();
-  
-  // STATE
   const [hoveredSkill, setHoveredSkill] = useState<typeof skills.items[0] | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
-  const [hasIntroFinished, setHasIntroFinished] = useState(false);
-
-  // HOOK: Handles the infinite scrolling math
-  const { containerRef, baseX } = useInfiniteLoop({
-    itemCount: REPEAT_COUNT,
-    speedTarget: (!hasIntroFinished || isHovered) ? 0 : 0.05
-  });
-
-  // INTRO TIMER
-  useEffect(() => {
-    const introTimer = setTimeout(() => setHasIntroFinished(true), 1800); 
-    return () => clearTimeout(introTimer);
-  }, []); 
 
   return (
     <Section className="flex flex-col items-center justify-center relative overflow-hidden w-full">
@@ -50,27 +26,17 @@ export const SkillsDesktop = () => {
       {/* MAIN CONTENT */}
       <div className="z-10 w-full flex flex-col items-center gap-16">
         
-        {/* INFINITE CAROUSEL */}
-        <div 
-            className="w-full overflow-hidden py-10"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-        >
-            <motion.div 
-                ref={containerRef}
-                className="flex gap-12 w-max px-8" 
-                style={{ x: baseX }} 
-            >
-                {repeatedSkills.map((skill, index) => (
-                    <SkillCard 
-                      key={`${skill.name}-${index}`} 
-                      skill={skill} 
-                      index={index} 
-                      onHover={setHoveredSkill} 
-                      isHovered={hoveredSkill?.name === skill.name}
-                    />
-                ))}
-            </motion.div>
+        {/* ALL SKILLS AT ONCE — names always visible, hover for details */}
+        <div className="flex justify-center gap-6 xl:gap-10 px-8 py-6">
+            {skills.items.map((skill, index) => (
+                <SkillCard
+                  key={skill.name}
+                  skill={skill}
+                  index={index}
+                  onHover={setHoveredSkill}
+                  isHovered={hoveredSkill?.name === skill.name}
+                />
+            ))}
         </div>
 
         {/* INFO DISPLAY SECTION */}
@@ -91,20 +57,20 @@ interface SkillCardProps {
 }
 
 const SkillCard = ({ skill, index, onHover, isHovered }: SkillCardProps) => (
-  <motion.div 
-      className="relative group shrink-0 z-10"
+  <motion.div
+      className="relative group shrink-0 z-10 flex flex-col items-center"
       onMouseEnter={() => onHover(skill)}
       initial={{ opacity: 0, y: 100, rotate: 5 }}
       whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-      viewport={{ once: false, margin: "-10% 0px" }} 
-      transition={{ duration: 0.5, ease: "backOut", delay: index * 0.03 }}
+      viewport={{ once: false, margin: "-10% 0px" }}
+      transition={{ duration: 0.5, ease: "backOut", delay: index * 0.05 }}
   >
       <motion.div
           whileHover={{ y: -15, scale: 1.15 }}
           whileTap={{ scale: 0.95 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
           className={`
-              relative w-32 h-32 rounded-3xl overflow-hidden 
+              relative w-24 h-24 xl:w-32 xl:h-32 rounded-3xl overflow-hidden
               transition-all duration-300
               ${isHovered 
               ? "shadow-[0_20px_30px_-10px_rgba(0,0,0,0.3)] opacity-100 grayscale-0" 
@@ -117,20 +83,24 @@ const SkillCard = ({ skill, index, onHover, isHovered }: SkillCardProps) => (
               alt={skill.name}
               fill
               className="object-cover"
-              draggable={false} 
+              draggable={false}
+              sizes="128px"
           />
       </motion.div>
+      <span className={`mt-4 font-display font-bold text-xs xl:text-sm uppercase tracking-widest whitespace-nowrap transition-colors ${isHovered ? "text-brand-pink" : "text-brand-text/60"}`}>
+          {skill.name.replace(/^Adobe /, "")}
+      </span>
   </motion.div>
 );
 
 const SkillInfoDisplay = ({ activeSkill }: { activeSkill: typeof portfolioConfig.skills.items[number] | null }) => (
   <div className="w-full max-w-4xl px-6 relative z-20">
-    <MotionGlassCard
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false }}
       transition={{ duration: 0.5, delay: 0.5 }} 
-      className="p-10 rounded-[2.5rem] h-[300px] flex flex-col justify-center items-center text-center overflow-hidden"
+      className="surface-raised p-10 rounded-[2.5rem] h-[300px] flex flex-col justify-center items-center text-center overflow-hidden"
     >
       <AnimatePresence mode="wait">
         {activeSkill ? (
@@ -160,11 +130,11 @@ const SkillInfoDisplay = ({ activeSkill }: { activeSkill: typeof portfolioConfig
             className="h-full flex items-center"
           >
               <p className="font-display text-xl uppercase tracking-[0.2em] text-brand-text">
-              Select a Software
+              Hover a tool for details
             </p>
           </motion.div>
         )}
       </AnimatePresence>
-    </MotionGlassCard>
+    </motion.div>
   </div>
 );

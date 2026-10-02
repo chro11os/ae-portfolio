@@ -139,7 +139,7 @@ export const WorksDesktop = () => {
 
                                     {/* Overlay on Hover */}
                                     <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                                        <span className="text-white/90 font-display tracking-widest text-sm border border-white/40 px-6 py-2 rounded-md backdrop-blur-md bg-white/10">
+                                        <span className="surface-raised text-brand-pink font-display tracking-widest text-sm px-6 py-2 rounded-md">
                                             EXPAND
                                         </span>
                                     </div>

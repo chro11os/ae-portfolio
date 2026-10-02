@@ -5,10 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Section } from "../../ui/Section";
 import { BigDisplay } from "../../ui/Typography";
 import { FadeIn } from "../../ui/FadeIn";
-import { GlassCard } from "../../ui/GlassCard";
 import { portfolioConfig } from "../../../config/portfolio";
-
-const MotionGlassCard = motion(GlassCard);
 
 export const SkillsMobile = () => {
     const { skills } = portfolioConfig;
@@ -46,13 +43,13 @@ export const SkillsMobile = () => {
                 <div className="w-full relative z-20 mt-4 h-[240px]">
                     <AnimatePresence mode="wait">
                         {activeSkill ? (
-                            <MotionGlassCard
+                            <motion.div
                                 key={activeSkill.name}
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
                                 transition={{ duration: 0.3 }}
-                                className="p-6 rounded-3xl h-full flex flex-col justify-center items-center text-center overflow-hidden bg-white/40 backdrop-blur-xl border border-white/40"
+                                className="p-6 rounded-3xl h-full flex flex-col justify-center items-center text-center overflow-hidden surface-raised"
                             >
                                 <h3 className="font-display font-bold text-2xl text-brand-pink uppercase mb-3">
                                     {activeSkill.name}
@@ -61,19 +58,19 @@ export const SkillsMobile = () => {
                                 <p className="font-sans text-brand-text text-sm leading-relaxed font-light">
                                     {activeSkill.description}
                                 </p>
-                            </MotionGlassCard>
+                            </motion.div>
                         ) : (
-                            <MotionGlassCard
+                            <motion.div
                                 key="default"
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                                 exit={{ opacity: 0 }}
-                                className="p-6 rounded-3xl h-full flex flex-col justify-center items-center text-center bg-white/40 backdrop-blur-xl border border-white/40"
+                                className="p-6 rounded-3xl h-full flex flex-col justify-center items-center text-center surface-raised"
                             >
                                 <p className="font-display text-sm uppercase tracking-[0.2em] text-brand-text/50">
                                     Tap an icon to view details
                                 </p>
-                            </MotionGlassCard>
+                            </motion.div>
                         )}
                     </AnimatePresence>
                 </div>

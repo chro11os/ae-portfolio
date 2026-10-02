@@ -1,6 +1,5 @@
 "use client";
 import React, { useRef } from "react";
-import { GlassCard } from "./GlassCard";
 
 // Navigation Items Configuration
 const navItems = [
@@ -20,7 +19,7 @@ export const Navbar = () => {
   const handleMouseMove = (e: React.MouseEvent) => {
     const maxDistance = 150;
     buttonRefs.current.forEach((btn) => {
-      if (!btn) return;
+      if (!btn || btn.offsetWidth < 40) return; // still expanding — its position isn't final yet
       const rect = btn.getBoundingClientRect();
       const distance = Math.abs(e.clientX - (rect.left + rect.width / 2));
       const scale = distance < maxDistance ? 1 + Math.sin((1 - distance / maxDistance) * Math.PI / 2) * 0.6 : 1;
@@ -41,12 +40,17 @@ export const Navbar = () => {
 
   return (
     <div className="hidden md:block fixed z-[100] top-8 left-8">
-      <div onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-        <GlassCard className="
-          flex items-end gap-2 p-3 rounded-2xl
-          bg-white/10 backdrop-blur-2xl border border-white/20
-          shadow-[0_20px_40px_-10px_rgba(0,0,0,0.2)]
-        ">
+      {/* Collapsed to the menu icon; hover (or keyboard focus) slides the section buttons out to the right */}
+      <nav aria-label="Sections" className="group/nav" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+        <div className="flex items-end p-3 rounded-2xl surface-raised">
+          <button
+            aria-label="Open navigation"
+            className="w-12 h-12 rounded-2xl flex items-center justify-center hover:surface-inset transition-[background,box-shadow]"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" className="w-6 h-6 text-brand-text/70 group-hover/nav:text-brand-pink transition-colors">
+              <path d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
           {navItems.map((item, index) => (
             <NavButton
               key={item.id}
@@ -55,8 +59,8 @@ export const Navbar = () => {
               onClick={() => scrollToSection(item.id)}
             />
           ))}
-        </GlassCard>
-      </div>
+        </div>
+      </nav>
     </div>
   );
 };
@@ -74,18 +78,21 @@ const NavButton = React.forwardRef<HTMLButtonElement, NavButtonProps>(({ item, o
       onClick={onClick}
       className="
                 group relative 
-                w-10 h-10 md:w-12 md:h-12 
-                rounded-2xl 
+                h-12 rounded-2xl 
                 flex items-center justify-center 
-                transition-[background-color,transform] duration-150 ease-out
-                hover:bg-white/20
+                hover:surface-inset
                 origin-bottom 
+                /* collapsed: zero width, invisible; expanded when the nav is hovered or focused */
+                w-0 ml-0 opacity-0 pointer-events-none
+                group-hover/nav:w-12 group-hover/nav:ml-2 group-hover/nav:opacity-100 group-hover/nav:pointer-events-auto
+                group-focus-within/nav:w-12 group-focus-within/nav:ml-2 group-focus-within/nav:opacity-100 group-focus-within/nav:pointer-events-auto
+                transition-[width,margin,opacity,background,box-shadow,transform] duration-200 ease-out
             "
     >
       <span className={`
                 absolute left-1/2 -translate-x-1/2 
                 px-2 py-1 
-                bg-black/80 backdrop-blur-md text-white text-[10px] uppercase font-bold tracking-widest rounded-md
+                bg-brand-text shadow-md text-white text-[10px] uppercase font-bold tracking-widest rounded-md
                 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none
                 whitespace-nowrap
                 z-50
@@ -95,7 +102,7 @@ const NavButton = React.forwardRef<HTMLButtonElement, NavButtonProps>(({ item, o
       </span>
       <svg
         viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
-        className="w-5 h-5 md:w-6 md:h-6 text-brand-text/70 group-hover:text-brand-pink transition-colors pointer-events-none"
+        className="w-6 h-6 shrink-0 text-brand-text/70 group-hover:text-brand-pink transition-colors pointer-events-none"
       >
         {item.icon}
       </svg>

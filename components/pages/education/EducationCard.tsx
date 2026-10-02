@@ -19,12 +19,9 @@ export const EducationCard = ({ activeItem, index }: EducationCardProps) => {
             className="
                 animate-card-in
                 relative 
-                bg-gradient-to-br from-gray-50 to-gray-100
+                surface-raised
                 p-12 rounded-[2.5rem] 
                 min-h-[450px] flex flex-col justify-center 
-                border border-white/60
-                shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] 
-                shadow-[inset_0_2px_4px_rgba(255,255,255,1),inset_0_-2px_4px_rgba(0,0,0,0.05)]
                 will-change-transform
             "
         >

@@ -83,7 +83,7 @@ export const ContactMobile = () => {
                         variant="secondary"
                         size="md"
                         rounded="xl"
-                        className="w-full active:bg-white/60"
+                        className="w-full"
                     >
                         Download CV
                     </Button>

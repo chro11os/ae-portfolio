@@ -28,8 +28,8 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     const baseStyles = "relative font-display font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center overflow-hidden active:scale-95 disabled:opacity-50 disabled:pointer-events-none";
     
     const variants = {
-      primary: "bg-brand-pink text-white shadow-lg hover:bg-brand-pink/90",
-      secondary: "bg-white/40 backdrop-blur-xl border border-white/40 text-brand-text hover:bg-white/60 hover:shadow-md",
+      primary: "bg-brand-pink text-white shadow-[inset_0_1px_0_rgb(255_255_255/0.35),inset_0_-3px_0_rgb(0_0_0/0.15),0_10px_20px_-8px_rgb(240_74_117/0.7)] hover:bg-brand-pink/90 active:shadow-[inset_0_3px_6px_rgb(0_0_0/0.2)]",
+      secondary: "surface-raised text-brand-text active:surface-inset",
       outline: "border border-brand-pink/30 bg-brand-pink/5 text-brand-pink hover:bg-brand-pink hover:text-white",
       ghost: "bg-transparent text-brand-text/50 hover:text-brand-pink"
     };

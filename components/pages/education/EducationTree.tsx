@@ -30,7 +30,7 @@ export const EducationTree = ({ items, selectedId, onSelect, university }: Educa
              <div className="w-full h-full bg-brand-pink/30" />
         </FadeIn>
 
-        <div className="space-y-8 relative z-10">
+        <div className="space-y-6 relative z-10">
           {items.map((item, index) => {
             const isActive = selectedId === item.id;
             return (
@@ -42,8 +42,8 @@ export const EducationTree = ({ items, selectedId, onSelect, university }: Educa
                 className="relative"
               >
                 <div
-                  onClick={() => onSelect(item.id)}
-                  className="group relative pl-16 cursor-pointer flex items-center"
+                  onMouseEnter={() => onSelect(item.id)}
+                  className="group relative pl-16 flex items-center"
                 >
                   {/* DOT */}
                   <div

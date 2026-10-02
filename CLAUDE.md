@@ -16,7 +16,7 @@ bunx tsc --noEmit   # typecheck (clean)
 ```
 
 No test suite. Verify visually at both `< lg` (mobile) and `>= lg` (desktop) widths.
-Headless screenshots: a puppeteer-core script driving the system Chrome against `PORT=3100 bun run start` works well; wait ~3.5 s for the Preloader, and scroll each section into view first (FadeIn only animates in view).
+Headless screenshots: a puppeteer-core script driving the system Chrome against `PORT=3100 bun run start` works well; wait ~2 s for the Preloader, and scroll each section into view first (FadeIn only animates in view).
 
 ## Stack
 
@@ -34,8 +34,8 @@ components/pages/<x>/  one folder per section:
     XDesktop.tsx       lg+ layout, fixed h-screen
     XMobile.tsx        < lg layout, flowing height
                        page.tsx pairs them with <Responsive mobile desktop> (components/ui/Responsive.tsx)
-components/ui/         shared primitives (Section, FadeIn, Button, Input, GlassCard, Typography, Navbar, ...)
-hooks/                 useContactForm (mailto), useInfiniteLoop (skills carousel)
+components/ui/         shared primitives (Section, FadeIn, Button, Input, Typography, Navbar, Responsive, ...)
+hooks/                 useContactForm (mailto)
 public/works-assets/   gallery images, referenced by path from config
 ```
 
@@ -43,8 +43,9 @@ public/works-assets/   gallery images, referenced by path from config
 
 - Brand tokens in `app/globals.css` `@theme`: `brand-bg #EBEBEB`, `brand-pink #F04A75`, `brand-text #333`. Use `text-brand-pink` etc., never raw hex.
 - Headings: `font-display font-bold uppercase`. Body: `font-sans`.
+- Surfaces are 3D, **not glassmorphism**: `surface-raised` (cards, bars, secondary buttons) and `surface-inset` (inputs, active tabs, hover/pressed states, detail wells), defined as `@utility` in `globals.css`. Don't add `backdrop-blur`/`bg-white/NN` glass panels; the only blur left is the dark full-screen overlays (lightbox, PaperViewer). Don't stack `shadow-*` on a surface — it replaces the 3D shadow.
 - Every section root is `<Section>` (min-h-screen mobile, h-screen + overflow-hidden on lg).
-- Scroll-in animation = wrap in `<FadeIn direction delay>`; it replays on every scroll (`once: false`) by design.
+- Scroll-in animation = wrap in `<FadeIn direction delay>`; it animates once (`once: true`), 0.5 s, and halves the `delay` you pass. Keep motion snappy — the site previously felt slow from long fades, a 2.2 s Lenis glide and a 3.5 s preloader.
 - Relative imports (`../../ui/X`) are the norm; `@/` alias exists but is only used once.
 - Mobile and desktop are separate components. A change to one section usually needs doing in both.
 
@@ -53,7 +54,8 @@ public/works-assets/   gallery images, referenced by path from config
 - Both mobile and desktop trees are mounted at once and hidden with CSS — state is not shared between them, and effects/ScrollTriggers run twice.
 - Images in `public/` are huge (up to 28 MB PNGs, 236 MB total). Always render through `next/image`; a raw `<img>` or CSS `background-image` ships the original file.
 - Photography filenames mix `.JPG` and `.jpg` — paths are case-sensitive on Linux/Vercel.
+- Education desktop: hovering a tree item (`onMouseEnter` in EducationTree) switches the card; there is no click or scroll selection.
 - `data-lenis-prevent` is required on any inner scroll container (see Works grid) or Lenis hijacks the wheel.
 - Font variable classes (`rubik.variable`, `oswald.variable`) must stay on `<html>`, not `<body>` — `@theme` resolves `--font-sans`/`--font-display` on `:root`. On `<body>` the site silently falls back to the system font (it did until 2026-09-29).
 - Desktop sections are exactly one screen tall with `overflow-hidden`, and `Section`'s `lg:py-0` overrides any `py-*` you pass. If content is taller than the viewport it gets clipped top *and* bottom (inner wrappers are `justify-center`) — check at 1024×768.
-- The Navbar is `fixed` top-left at z-100 and overlaps section content on desktop (TASKS.md V2).
+- The Navbar is `fixed` top-left, collapsed to one menu button; section buttons are zero-width until the `group/nav` is hovered or focus-within. Magnification skips buttons narrower than 40px (still expanding).

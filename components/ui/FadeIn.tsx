@@ -11,7 +11,7 @@ export const FadeIn = ({
   children, 
   delay = 0, 
   direction = "none", 
-  duration = 0.8,
+  duration = 0.5,
   className,
   ...props 
 }: FadeInProps) => {
@@ -30,10 +30,14 @@ export const FadeIn = ({
     <motion.div
       initial={getInitial()}
       whileInView={{ y: 0, x: 0, opacity: 1 }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }} 
-      viewport={{ 
-        once: false, // PERSISTENT: Replays animation on scroll
-        margin: "-50px" 
+      transition={{
+        duration,
+        delay: delay * 0.5, // ponytail: call sites pass stagger delays up to 0.8 s; halved here instead of editing ~40 of them
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      viewport={{
+        once: true, // animate in the first time only; replaying on every scroll made the site feel slow
+        margin: "-50px"
       }}
       className={className}
       {...props}

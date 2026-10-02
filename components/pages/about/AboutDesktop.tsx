@@ -17,57 +17,33 @@ export const AboutDesktop = () => {
             {/* MAIN CONTAINER */}
             <div className="w-full max-w-[90rem] mx-auto px-12 relative z-20 h-full flex flex-row items-center gap-20">
 
-                {/* --- LEFT COLUMN: Transparent Image + 3D Title Card --- */}
-                <div className="relative flex-1 flex flex-col items-center justify-center mb-12">
+                {/* --- LEFT COLUMN: Portrait fading into the page, title over the fade --- */}
+                <div className="relative flex-1 flex flex-col items-center justify-center">
 
-                    {/* PINK PORTRAIT IMAGE (TRANSPARENT) */}
+                    {/* PINK PORTRAIT IMAGE (TRANSPARENT) — bottom fades out to hide the photo's hard crop */}
                     <FadeIn
                         delay={0.2}
                         direction="up"
-                        className="relative w-full aspect-[4/4] flex items-end justify-center z-10"
+                        className="relative w-full aspect-square flex items-end justify-center z-10"
                     >
-                        <div className="relative w-full h-full">
+                        <div className="relative w-full h-full [mask-image:linear-gradient(to_bottom,black_60%,transparent_95%)]">
                             <Image
                                 src="/assets/about-me-section/above-header-photo.png"
                                 alt="Portrait"
                                 fill
-                                className="object-contain drop-shadow-2xl"
+                                className="object-contain"
                                 priority
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                         </div>
                     </FadeIn>
 
-                    {/* 3D CARD TITLE OVERLAY */}
-                    <div className="absolute bottom-0 translate-y-[50%] left-1/2 -translate-x-1/2 w-[140%] z-20">
-                        <FadeIn delay={0.4} direction="up">
-                            <div className="
-                        relative
-                        px-8 py-6
-                        rounded-[2.5rem]
-                        /* 3D EDUCATION CARD STYLES */
-                        bg-gradient-to-br from-gray-50 to-gray-100
-                        border border-white/60
-                        shadow-[0_20px_50px_-12px_rgba(0,0,0,0.1)] 
-                        shadow-[inset_0_2px_4px_rgba(255,255,255,1),inset_0_-2px_4px_rgba(0,0,0,0.05)]
-                        flex items-center justify-center
-                    ">
-                                {/* ENGRAVED TEXT TITLE */}
-                                <h1 className="
-                            font-display font-bold 
-                            text-[5vw] 
-                            text-brand-pink 
-                            whitespace-nowrap
-                            leading-none
-                            tracking-tight
-                            /* PURE ENGRAVED EFFECT */
-                            [text-shadow:0px_1px_0px_rgba(255,255,255,0.8),0px_-1px_0px_rgba(0,0,0,0.1)]
-                        ">
-                                    {about.heading}
-                                </h1>
-                            </div>
-                        </FadeIn>
-                    </div>
+                    {/* TITLE — sits on the faded area */}
+                    <FadeIn delay={0.4} direction="up" className="absolute bottom-[4%] inset-x-0 z-20 text-center">
+                        <h1 className="font-display font-bold text-[5vw] text-brand-pink whitespace-nowrap leading-none tracking-tight drop-shadow-[0_10px_10px_rgba(0,0,0,0.1)]">
+                            {about.heading}
+                        </h1>
+                    </FadeIn>
 
                 </div>
 

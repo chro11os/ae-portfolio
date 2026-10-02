@@ -1,6 +1,6 @@
 import React from "react";
 
-const baseStyles = "w-full bg-white/40 backdrop-blur-xl border border-white/40 text-brand-text placeholder:text-brand-text/30 focus:outline-none focus:border-brand-pink/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed";
+const baseStyles = "w-full surface-inset border border-transparent text-brand-text placeholder:text-brand-text/30 focus:outline-none focus:border-brand-pink/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed";
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   rounded?: "xl" | "2xl";

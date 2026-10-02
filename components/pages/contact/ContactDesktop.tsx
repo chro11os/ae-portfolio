@@ -75,7 +75,7 @@ export const ContactDesktop = () => {
                             variant="primary"
                             size="lg"
                             rounded="2xl"
-                            className="w-full shadow-lg"
+                            className="w-full"
                         >
                             Send Message
                         </Button>
@@ -88,7 +88,7 @@ export const ContactDesktop = () => {
                             variant="secondary"
                             size="lg"
                             rounded="2xl"
-                            className="w-full hover:border-brand-pink/30 hover:shadow-[0_0_20px_rgba(240,74,117,0.15)] group"
+                            className="w-full group"
                         >
                             <span className="group-hover:text-brand-pink transition-colors">Download CV</span>
                         </Button>
